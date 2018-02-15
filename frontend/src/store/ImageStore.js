@@ -20,7 +20,13 @@ class ImageStore extends EventEmitter {
   }
 
   handleActions(action) {
-    console.log('action handled');
+    switch(action.type) {
+      case "UPDATE_GIF": {
+        console.log("UPDATE",action.payload);
+        this.updateImageStore(action.payload);
+      }
+    }
+
   }
 
 }
@@ -28,7 +34,7 @@ class ImageStore extends EventEmitter {
 
 const imgStore = new ImageStore;
 
-dispatcher.register(imgStore.handleActions.bind(this))
-
+dispatcher.register(imgStore.handleActions.bind(imgStore))
+window.store=imgStore;
 window.dispatcher=dispatcher;
 export default imgStore;

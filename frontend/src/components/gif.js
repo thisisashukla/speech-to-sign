@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import ImageStore from '../store/ImageStore'
+import ImageStore from '../store/ImageStore';
+import * as ImgAction from '../actions/imgActions';
+
+
 class Gif extends Component {
   constructor() {
     super();
@@ -16,11 +19,16 @@ class Gif extends Component {
     })
   }
 
+  updateGif() {
+    ImgAction.updateGif(Date.now())
+  }
+
   render() {
     const { gif } = this.state;
 
     return (
       <div>
+      <button onClick={this.updateGif.bind(this)}>Update</button>
         <a>{gif}</a>
       </div>
     );

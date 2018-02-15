@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import styled from 'styled-components';
+import Gif from './components/gif';
+// import Title from './components/title'
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+const Title= styled.h1`
+  color: black;
+  font-size:30px
+`
+class Layout extends Component {
+  render(){
+    // console.log(this.props.children);
+    return (
+      <div>
+        <Gif/>
+      </div>
+    );
+  }
+}
+
+
+ReactDOM.render(<Layout />, document.getElementById('root'));

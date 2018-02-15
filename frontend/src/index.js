@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
-import Gif from './components/gif';
-// import Title from './components/title'
 
-const Title= styled.h1`
-  color: black;
-  font-size:30px
-`
-class Layout extends Component {
-  render(){
-    // console.log(this.props.children);
+import Title from './components/title';
+
+
+class Heading extends Component {
+  render() {
     return (
       <div>
-        <Gif/>
-      </div>
+        <div>
+          <Title>SpeechToSign</Title>
+        </div>
+        <div>
+          <Gif></Gif>
+        </div>
+        <div>
+          <Text></Text>
+        </div>
+        <div>
+          <Button></Button>
+        </div>
+      </div>          
     );
   }
 }
 
+var root = document.getElementById('root');
 
-ReactDOM.render(<Layout />, document.getElementById('root'));
+ReactDOM.render(<Heading />, root);

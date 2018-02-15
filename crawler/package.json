@@ -1,0 +1,14 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "description": "Crawler for lifeprint",
+  "main": "crawler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "crawler"
+  ],
+  "author": "Ankur Shukla",
+  "license": "MIT"
+}

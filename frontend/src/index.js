@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import Title from './components/title';
-
+import Gif from './components/gif';
 
 class Heading extends Component {
   render() {
@@ -12,14 +12,9 @@ class Heading extends Component {
           <Title>SpeechToSign</Title>
         </div>
         <div>
-          <Gif></Gif>
+          <img src={Gif}/>
         </div>
-        <div>
-          <Text></Text>
-        </div>
-        <div>
-          <Button></Button>
-        </div>
+        
       </div>          
     );
   }

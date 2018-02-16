@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ImageStore from '../store/ImageStore';
-import * as ImgAction from '../actions/imgActions';
+import ImageStore from '../store/gifStore';
+import * as ImgAction from '../actions/gifActions';
 
 
 class Gif extends Component {

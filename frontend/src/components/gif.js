@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import ImageStore from '../store/gifStore';
 import * as ImgAction from '../actions/gifActions';
-import styled from 'styled-components';
+import { Image } from '../styles';
 
-const Image = styled.img`
-width: 100px;
-height: 100px;
-`
 class Gif extends Component {
   constructor() {
     super();

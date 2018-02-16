@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import Title from './components/title';
+import { Title } from './styles';
 import Gif from './components/gif';
 
 class Heading extends Component {

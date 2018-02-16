@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import ImageStore from '../store/gifStore';
 import * as ImgAction from '../actions/gifActions';
+import styled from 'styled-components';
 
-
+const Image = styled.img`
+width: 100px;
+height: 100px;
+`
 class Gif extends Component {
   constructor() {
     super();
@@ -25,11 +29,10 @@ class Gif extends Component {
 
   render() {
     const { gif } = this.state;
-
+    console.log(gif)
     return (
-      <div>
-      <button onClick={this.updateGif.bind(this)}>Update</button>
-        <a>{gif}</a>
+      <div align="center">
+      <Image src={gif}/>
       </div>
     );
   }

@@ -12,10 +12,10 @@ class Heading extends Component {
           <Title>SpeechToSign</Title>
         </div>
         <div>
-          <img src={Gif}/>
+          <Gif/>
         </div>
-        
-      </div>          
+
+      </div>
     );
   }
 }

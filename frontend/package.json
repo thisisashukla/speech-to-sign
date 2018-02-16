@@ -15,6 +15,7 @@
     "react-scripts": "1.1.1",
     "react-xml-parser": "^1.0.4",
     "styled-components": "^3.1.6",
+    "url-loader": "^0.6.2",
     "webpack": "^3.11.0"
   },
   "scripts": {

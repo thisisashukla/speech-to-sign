@@ -22,7 +22,9 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: {}
+            options: {
+              name: "./images/[hash].[ext]"
+            }
           }
         ]
       }

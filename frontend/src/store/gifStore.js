@@ -5,6 +5,7 @@ import images from '../../assests/images';
 class GifStore extends EventEmitter {
   constructor() {
     super();
+    // let img=require('../../assests/images/sign.gif');
     this.gif=images.defaultGif;
   }
 

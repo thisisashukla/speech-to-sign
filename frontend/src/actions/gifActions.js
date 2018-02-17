@@ -6,3 +6,9 @@ export function updateGif(path) {
     payload: path
   })
 }
+
+export function defaultGif() {
+  dispatcher.dispatch({
+    type: "DEFAULT_GIF",
+  })
+}

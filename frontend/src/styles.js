@@ -12,9 +12,14 @@ const Image = styled.img`
   margin-righ: auto;
 `
 const Button = styled.button`
-  color: black;
-  width: 200px;
-  height: 500 px;
+  background-color: #e7e7e7; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 `
 const Text = styled.p`
   color: black;

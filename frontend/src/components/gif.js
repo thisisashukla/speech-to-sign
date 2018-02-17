@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ImageStore from '../store/gifStore';
 import * as ImgAction from '../actions/gifActions';
 import { Image } from '../styles';
+import images from '../images';
 
 class Gif extends Component {
   constructor() {
@@ -20,14 +21,25 @@ class Gif extends Component {
   }
 
   updateGif() {
-    ImgAction.updateGif(Date.now())
+    console.log("update action")
+    var path=images.newGif;
+    ImgAction.updateGif(path)
+  }
+
+  defaultGif() {
+    console.log("defatul action")
+    ImgAction.defaultGif()
   }
 
   render() {
     const { gif } = this.state;
     // console.log(gif)
     return (
-      <Image src={gif}/>
+      <div>
+        <Image src={gif}/>
+        <button onClick={this.updateGif.bind(this)}>Update</button>
+        <button onClick={this.defaultGif.bind(this)}>Default</button>
+      </div>
     );
   }
 }

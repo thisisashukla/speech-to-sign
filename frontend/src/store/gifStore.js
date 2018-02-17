@@ -13,23 +13,33 @@ class GifStore extends EventEmitter {
     return images.defaultGif;
   }
 
+  setDefault() {
+    console.log("default called");
+    this.gif = images.defaultGif;
+    this.emit("change");
+  }
+
   updateGif(newGif) {
+    console.log("udpate called",newGif)
     this.gif=newGif;
     this.emit("change");
   }
 
   getGif() {
+    console.log("getting gif")
     return this.gif;
   }
 
   handleActions(action) {
     switch(action.type) {
       case 'DEFAULT_GIF': {
-        this.getDefault();
-      }
+        console.log("Default case")
+        this.setDefault();
+      };
       case 'UPDATE_GIF': {
-        this.updateGif(action.gif);
-      }
+        console.log("update case")
+        this.updateGif(action.payload);
+      };
     }
   }
 }

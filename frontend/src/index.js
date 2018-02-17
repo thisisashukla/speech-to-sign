@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import { Title } from './styles';
 import Gif from './components/gif';
+import PushButton from './components/button';
+import Transcription from './components/text';
 
 class Heading extends Component {
   render() {
@@ -11,10 +13,15 @@ class Heading extends Component {
         <div>
           <Title>SpeechToSign</Title>
         </div>
-        <div>
+        <div align="center">
           <Gif/>
         </div>
-
+        <div align="center">
+          <PushButton>Talk</PushButton>
+        </div>
+        <div align="center">
+          <Transcription/>
+        </div>
       </div>
     );
   }

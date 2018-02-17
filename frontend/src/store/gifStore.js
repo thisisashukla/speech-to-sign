@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import dispatcher from '../dispatcher';
-import images from '../../assests/images';
+import images from '../images';
 
 class GifStore extends EventEmitter {
   constructor() {

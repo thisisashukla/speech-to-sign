@@ -25,11 +25,9 @@ class Gif extends Component {
 
   render() {
     const { gif } = this.state;
-    console.log(gif)
+    // console.log(gif)
     return (
-      <div align="center">
       <Image src={gif}/>
-      </div>
     );
   }
 }

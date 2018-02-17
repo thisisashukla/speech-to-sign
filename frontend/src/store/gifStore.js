@@ -35,10 +35,12 @@ class GifStore extends EventEmitter {
       case 'DEFAULT_GIF': {
         console.log("Default case")
         this.setDefault();
+        break;
       };
       case 'UPDATE_GIF': {
         console.log("update case")
         this.updateGif(action.payload);
+        break;
       };
     }
   }

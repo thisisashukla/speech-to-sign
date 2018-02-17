@@ -7,6 +7,8 @@ import images from '../images';
 class Gif extends Component {
   constructor() {
     super();
+    this.updateGif = this.updateGif.bind(this);
+    this.defaultGif = this.defaultGif.bind(this)
     this.state = {
       gif: ImageStore.getDefault(),
     };
@@ -37,8 +39,8 @@ class Gif extends Component {
     return (
       <div>
         <Image src={gif}/>
-        <button onClick={this.updateGif.bind(this)}>Update</button>
-        <button onClick={this.defaultGif.bind(this)}>Default</button>
+        <button onClick={this.updateGif}>Update</button>
+        <button onClick={this.defaultGif}>Default</button>
       </div>
     );
   }

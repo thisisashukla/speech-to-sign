@@ -4,6 +4,7 @@
   "private": true,
   "main": "webpack.config.js",
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.0",
     "babel-plugin-add-module-exports": "^0.1.2",

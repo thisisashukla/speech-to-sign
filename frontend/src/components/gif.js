@@ -39,8 +39,6 @@ class Gif extends Component {
     return (
       <div>
         <Image src={gif}/>
-        <button onClick={this.updateGif}>Update</button>
-        <button onClick={this.defaultGif}>Default</button>
       </div>
     );
   }

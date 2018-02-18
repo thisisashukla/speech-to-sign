@@ -2,7 +2,7 @@
 
 # dependencies
 /frontend/node_modules
-
+/backend/expressjs/node_modules
 # testing
 /coverage
 

@@ -11,7 +11,7 @@ from SpeechToText.streamInput import MicrophoneStream
 
 # Create your views here.
 
-def toText(src_lang='en',trgt_lang='en'):
+def toText(speech, src_lang='en',trgt_lang='en'):
     # printing information for sanility check
     print("source language {}".format(src_lang))
     print("target language {}".format(trgt_lang))

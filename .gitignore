@@ -19,6 +19,9 @@
 # design
 /design
 
+# pyc files in backendpy
+*.pyc*
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

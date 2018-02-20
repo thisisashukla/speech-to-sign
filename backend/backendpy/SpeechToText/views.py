@@ -29,12 +29,12 @@ def toText(speech, src_lang='en',trgt_lang='en'):
         config=config,
         interim_results=False)
 
-    with MicrophoneStream(RATE, CHUNK) as stream:
-        audio_generator = stream.generator()
-        requests = (types.StreamingRecognizeRequest(audio_content=content)
-                    for content in audio_generator)
+    # with MicrophoneStream(RATE, CHUNK) as stream:
+    #     audio_generator = stream.generator()
+    requests = types.StreamingRecognizeRequest(audio_content=speech)
+                    # for content in audio_generator)
 
-        responses = client.streaming_recognize(streaming_config, requests)
+    responses = client.streaming_recognize(streaming_config, requests)
 
     num_chars_printed = 0
     for response in responses:
@@ -69,4 +69,5 @@ def toText(speech, src_lang='en',trgt_lang='en'):
             num_chars_printed = 0
             # printing text output
             print('Text output '+text)
-            return HttpResponse(text)
+            transciptionResponse={'text':text}
+            return JsonResponse(transciptionResponse)

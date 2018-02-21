@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
-
 import { ReactMic } from 'react-mic';
+import * as BtnAction from '../actions/buttonActions';
+import ButtonStore from '../store/buttonStore';
 
 class Button extends Component {
   constructor(props) {
     super(props);
+    this.startRecording = this.startRecording.bind(this);
+    this.stopRecording = this.stopRecording.bind(this);
     this.state = {
       record: false
     }
 
   }
 
+  componentWillMount() {
+    ButtonStore.on("change", () => {
+      this.setState({
+        record: ButtonStore.getStatus(),
+      })
+    })
+  }
+
   startRecording = () => {
-    this.setState({
-      record: true
-    });
+    BtnAction.startRecording();
   }
 
   stopRecording = () => {
-    this.setState({
-      record: false
-    });
+    BtnAction.stopRecording();
   }
 
   onStop(recordedBlob) {

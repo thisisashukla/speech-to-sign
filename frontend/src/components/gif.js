@@ -8,7 +8,7 @@ class Gif extends Component {
   constructor(props) {
     super(props);
     this.updateGif = this.updateGif.bind(this);
-    this.defaultGif = this.defaultGif.bind(this)
+    this.defaultGif = this.defaultGif.bind(this);
     this.state = {
       gif: ImageStore.getDefault(),
     };
@@ -29,7 +29,7 @@ class Gif extends Component {
   }
 
   defaultGif() {
-    console.log("defatul action")
+    console.log("default action")
     ImgAction.defaultGif()
   }
 

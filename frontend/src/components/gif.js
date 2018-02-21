@@ -5,8 +5,8 @@ import { Image } from '../styles';
 import images from '../images';
 
 class Gif extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.updateGif = this.updateGif.bind(this);
     this.defaultGif = this.defaultGif.bind(this)
     this.state = {

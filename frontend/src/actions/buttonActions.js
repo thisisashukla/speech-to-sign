@@ -12,3 +12,10 @@ export function stopRecording() {
     type: "STOP_RECORDING",
   })
 }
+
+export function sttApiCall(speechBlob) {
+  dispatcher.dispatch({
+    type: "SPEECH_TO_TEXT",
+    payload: speechBlob,
+  })
+}

@@ -6,8 +6,7 @@ import ButtonStore from '../store/buttonStore';
 class Button extends Component {
   constructor(props) {
     super(props);
-    this.startRecording = this.startRecording.bind(this);
-    this.stopRecording = this.stopRecording.bind(this);
+    this.toggleRecording = this.toggleRecording.bind(this);
     this.state = {
       record: false
     }
@@ -22,16 +21,19 @@ class Button extends Component {
     })
   }
 
-  startRecording = () => {
-    BtnAction.startRecording();
-  }
-
-  stopRecording = () => {
-    BtnAction.stopRecording();
-  }
+  toggleRecording = () => {
+    if(this.state.record) {
+      BtnAction.stopRecording();
+    }
+    else {
+      BtnAction.startRecording();
+    }
+    this.state.record = !this.state.record;
+    }
 
   onStop(recordedBlob) {
     console.log('recordedBlob is: ', recordedBlob);
+    BtnAction.sttApiCall(recordedBlob.blob);
   }
 
   render() {
@@ -46,8 +48,7 @@ class Button extends Component {
             backgroundColor="#FF4081" />
         </div>
         <div>
-          <button onClick={this.startRecording} type="button">Start</button>
-          <button onClick={this.stopRecording} type="button">Stop</button>
+          <button onClick={this.toggleRecording} type="button">Record</button>
         </div>
       </div>
     );

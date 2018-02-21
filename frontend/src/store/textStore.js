@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import dispatcher from '../dispatcher';
-
+import * as SpeechToText from '../apicallers/speechToText';
 
 class TextStore extends EventEmitter {
   constructor(props) {
@@ -13,9 +13,9 @@ class TextStore extends EventEmitter {
     this.emit("change")
   }
 
-  updateText() {
+  updateText(text) {
     console.log("updating text");
-    this.text = "api result";
+    this.text = text;
     this.emit("change");
   }
 
@@ -31,9 +31,14 @@ class TextStore extends EventEmitter {
       }
       case 'STOP_RECORDING': {
         console.log("update case")
-        this.updateText();
+        this.updateText('nothing');
         break;
       };
+      case 'SPEECH_TO_TEXT': {
+        console.log('stt');
+        text=SpeechToText.apiCall(action.payload);
+        this.updateText(text);
+      }
     }
   }
 }

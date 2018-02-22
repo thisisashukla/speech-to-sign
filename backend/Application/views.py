@@ -30,11 +30,11 @@ def index(request):
 #     return JsonResponse(response)
 
 def speechToText(request,src_lang='en',trgt_lang='en'):
-
+    print('hello')
     # API calling method
-
-    # getting src_txt transcription
-    src_txt = toText(request.speech, src_lang)
+    if(request.method=='POST'):
+        # getting src_txt transcription
+        src_txt = toText(request.speech, src_lang)
 
     # processing text
     if(src_lang!=trgt_lang):

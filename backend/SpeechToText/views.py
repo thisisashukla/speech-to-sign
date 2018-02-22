@@ -11,7 +11,7 @@ from SpeechToText.streamInput import MicrophoneStream
 
 # Create your views here.
 
-def toText(speech, src_lang='en',trgt_lang='en'):
+def toText(speech, src_lang='en'):
     # printing information for sanility check
     print("source language {}".format(src_lang))
     print("target language {}".format(trgt_lang))
@@ -27,7 +27,7 @@ def toText(speech, src_lang='en',trgt_lang='en'):
         language_code=src_lang)
     streaming_config = types.StreamingRecognitionConfig(
         config=config,
-        interim_results=False)
+        interim_results=True)
 
     # with MicrophoneStream(RATE, CHUNK) as stream:
     #     audio_generator = stream.generator()
@@ -70,4 +70,4 @@ def toText(speech, src_lang='en',trgt_lang='en'):
             # printing text output
             print('Text output '+text)
             transciptionResponse={'text':text}
-            return JsonResponse(transciptionResponse)
+            return transciptionResponse

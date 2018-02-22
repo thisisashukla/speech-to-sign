@@ -25,7 +25,7 @@ def text_translate(src_text, trgt_lang):
     print(u'Translation: {}'.format(result['translatedText'].encode("utf-8")))
     print(u'Detected source language: {}'.format(result['detectedSourceLanguage']))
 
-    return HttpResponse(result['translatedText'])
+    return result['translatedText']
 
 def analyse(src_text,src_lang):
     # Instantiates a client
@@ -47,7 +47,7 @@ def analyse(src_text,src_lang):
     for token in tokens:
         dict.update({token['text']['content']:token['partOfSpeech']['tag']})
     print(dict)
-    return HttpResponse(dict)
+    return dict
 
 def detect_language(src_text):
     """Detects the text's language."""
@@ -62,4 +62,4 @@ def detect_language(src_text):
     print('Confidence: {}'.format(result['confidence']))
     print('Language: {}'.format(result['language']))
 
-    return HttpResponse(result['language'])
+    return result['language']

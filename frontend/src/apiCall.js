@@ -1,8 +1,8 @@
-export function toText(chunk) {
+export function apiCaller(request) {
 
-  axios.get('/urlforrequest', {
+  axios.get(request.url, {
     params: {
-      blob: chunk
+      blob: request.payload
     }
   })
   .then(function(response) {

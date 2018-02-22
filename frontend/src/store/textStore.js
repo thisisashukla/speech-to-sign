@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import dispatcher from '../dispatcher';
+import { apiCaller } from '../apiCall';
 
 class TextStore extends EventEmitter {
   constructor(props) {
@@ -37,7 +38,16 @@ class TextStore extends EventEmitter {
         console.log('stt');
         // text=SpeechToText.apiCall(action.payload);
         // TODO: this.updateText(action.payload);
-        this.updateText("action.payload");
+
+        // Making API request
+        request = {
+          url: '/',
+          payload: action.payload;
+        }
+
+        res = apiCaller(request);
+
+        this.updateText("res");
       }
     }
   }

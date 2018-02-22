@@ -3,8 +3,8 @@ import dispatcher from '../dispatcher';
 import images from '../images';
 
 class GifStore extends EventEmitter {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // let img=require('../../assests/images/sign.gif');
     this.gif=images.defaultGif;
   }
@@ -50,6 +50,6 @@ class GifStore extends EventEmitter {
 const gifStore = new GifStore;
 
 dispatcher.register(gifStore.handleActions.bind(gifStore))
-window.store=gifStore;
-window.dispatcher=dispatcher;
+// window.store=gifStore;
+// window.dispatcher=dispatcher;
 export default gifStore;

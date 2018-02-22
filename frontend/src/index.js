@@ -17,7 +17,7 @@ class Heading extends Component {
           <Gif/>
         </div>
         <div align="center">
-          <PushButton>Talk</PushButton>
+          <PushButton/>
         </div>
         <div align="center">
           <Transcription/>

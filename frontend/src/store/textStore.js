@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import dispatcher from '../dispatcher';
-import * as SpeechToText from '../apicallers/speechToText';
+// import SpeechToText from '../apicallers/speechToText';
 
 class TextStore extends EventEmitter {
   constructor(props) {

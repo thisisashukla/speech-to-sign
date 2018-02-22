@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { ReactMic } from 'react-mic';
 import * as BtnAction from '../actions/buttonActions';
 import ButtonStore from '../store/buttonStore';
+import { PushButton } from '../styles';
+import MButton from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
 
 class Button extends Component {
   constructor(props) {
@@ -39,17 +42,15 @@ class Button extends Component {
   render() {
     return (
       <div>
-        <div>
+        <PushButton onClick={this.toggleRecording} type="button">
             <ReactMic
             record={this.state.record}
             className="sound-wave"
             onStop={this.onStop}
             strokeColor="#000000"
-            backgroundColor="#FF4081" />
-        </div>
-        <div>
-          <button onClick={this.toggleRecording} type="button">Record</button>
-        </div>
+            backgroundColor="#FFFFFF" />
+        </PushButton>
+
       </div>
     );
   }

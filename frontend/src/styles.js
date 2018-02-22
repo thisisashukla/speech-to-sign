@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from 'material-ui/Button';
 
 const Title  = styled.h1`
   color: black;
@@ -11,15 +12,10 @@ const Image = styled.img`
   margin-left: auto;
   margin-righ: auto;
 `
-const Button = styled.button`
-  background-color: #e7e7e7; /* Green */
-  border: none;
+const PushButton = styled(Button)`
+  background: white;
   color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+  radius: 50%;
 `
 const Text = styled.p`
   color: black;
@@ -28,7 +24,8 @@ const Text = styled.p`
 `
 
 
+
 export { Title }
 export { Image }
-export { Button }
+export { PushButton }
 export { Text }

@@ -1,13 +1,59 @@
 import React, { Component } from 'react';
+import { ReactMic } from 'react-mic';
+import * as BtnAction from '../actions/buttonActions';
+import ButtonStore from '../store/buttonStore';
+import { PushButton } from '../styles';
+import MButton from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
 
-import { Button } from '../styles';
+class Button extends Component {
+  constructor(props) {
+    super(props);
+    this.toggleRecording = this.toggleRecording.bind(this);
+    this.state = {
+      record: false
+    }
 
-class PushButton extends Component {
+  }
+
+  componentWillMount() {
+    ButtonStore.on("change", () => {
+      this.setState({
+        record: ButtonStore.getStatus(),
+      })
+    })
+  }
+
+  toggleRecording = () => {
+    if(this.state.record) {
+      BtnAction.stopRecording();
+    }
+    else {
+      BtnAction.startRecording();
+    }
+    this.state.record = !this.state.record;
+    }
+
+  onStop(recordedBlob) {
+    console.log('recordedBlob is: ', recordedBlob);
+    BtnAction.sttApiCall(recordedBlob);
+  }
+
   render() {
     return (
-      <Button/>
+      <div>
+        <PushButton onClick={this.toggleRecording} type="button">
+            <ReactMic
+            record={this.state.record}
+            className="sound-wave"
+            onStop={this.onStop}
+            strokeColor="#000000"
+            backgroundColor="#FFFFFF" />
+        </PushButton>
+
+      </div>
     );
   }
 }
 
-export default PushButton;
+export default Button;

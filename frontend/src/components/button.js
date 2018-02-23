@@ -36,7 +36,7 @@ class Button extends Component {
 
   onStop(recordedBlob) {
     console.log('recordedBlob is: ', recordedBlob);
-    BtnAction.sttApiCall(recordedBlob.blob);
+    BtnAction.sttApiCall(recordedBlob);
   }
 
   render() {

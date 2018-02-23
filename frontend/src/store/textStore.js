@@ -1,6 +1,12 @@
 import { EventEmitter } from 'events';
 import dispatcher from '../dispatcher';
 import { apiCaller } from '../apiCall';
+import axios from 'axios'
+var qs = require('qs');
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 
 class TextStore extends EventEmitter {
   constructor(props) {
@@ -33,19 +39,30 @@ class TextStore extends EventEmitter {
         console.log("update case")
         this.updateText('nothing');
         break;
-      };
+      }
       case 'SPEECH_TO_TEXT': {
         console.log('stt');
         // text=SpeechToText.apiCall(action.payload);
         // TODO: this.updateText(action.payload);
 
         // Making API request
-        request = {
-          url: '/',
-          payload: action.payload;
+        console.log(action.payload['blob'])
+        axios.post('http://localhost:8000/api', qs.stringify({
+          'speech':action.payload,
+        }))
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        var config = {
+          'data': action.payload,
         }
 
-        res = apiCaller(request);
+        console.log(action.payload.toString('base64'));
+
+        // res = apiCaller(request);
 
         this.updateText("res");
       }

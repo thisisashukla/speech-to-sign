@@ -3,8 +3,8 @@ import dispatcher from '../dispatcher';
 import { apiCaller } from '../apiCall';
 import axios from 'axios'
 var qs = require('qs');
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+// axios.defaults.xsrfCookieName = 'csrftoken';
+// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 

@@ -32,9 +32,9 @@ def index(request):
 def speechToText(request,src_lang='en',trgt_lang='en'):
     print('hello')
     # API calling method
-
+    # print(len(request.body))
     # getting src_txt transcription
-    src_txt = toText(request.speech, src_lang)
+    src_txt = toText(request.body, src_lang)
 
     # processing text
     if(src_lang!=trgt_lang):

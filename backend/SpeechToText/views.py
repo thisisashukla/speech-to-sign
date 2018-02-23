@@ -9,12 +9,20 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from SpeechToText.streamInput import MicrophoneStream
 
+# Import the base64 encoding library.
+import base64
+
+# Pass the audio data to an encoding function.
+def encode_audio(audio):
+  # audio_content = audio.read()
+  return base64.b64encode(audio)
+
 # Create your views here.
 
-def toText(speech, src_lang='en'):
+def toText(speech_chunk, src_lang='en'):
     # printing information for sanility check
     print("source language {}".format(src_lang))
-    print("target language {}".format(trgt_lang))
+    # print("target language {}".format(trgt_lang))
 
     # Audio recording parameters
     RATE = 16000
@@ -29,9 +37,10 @@ def toText(speech, src_lang='en'):
         config=config,
         interim_results=True)
 
+    content= encode_audio(speech_chunk)
     # with MicrophoneStream(RATE, CHUNK) as stream:
     #     audio_generator = stream.generator()
-    requests = types.StreamingRecognizeRequest(audio_content=speech)
+    requests = types.StreamingRecognizeRequest(audio_content=content)
                     # for content in audio_generator)
 
     responses = client.streaming_recognize(streaming_config, requests)

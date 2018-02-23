@@ -3,6 +3,8 @@ import dispatcher from '../dispatcher';
 import { apiCaller } from '../apiCall';
 import axios from 'axios'
 var qs = require('qs');
+import {Howl, Howler} from 'howler';
+
 // axios.defaults.xsrfCookieName = 'csrftoken';
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -47,18 +49,30 @@ class TextStore extends EventEmitter {
 
         // Making API request
         console.log(action.payload['blob'])
-        axios.post('http://localhost:8000/api', qs.stringify({
-          'speech':action.payload,
-        }))
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
+        // axios.post('http://localhost:8000/api', qs.stringify({
+        //   'speech':action.payload,
+        // }))
+        // .then(function (response) {
+        //   console.log(response);
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
+        // var config = {
+        //   'data': action.payload,
+        // }
+
+        // Change global volume.
+        Howler.volume(0.5);
+
+        // Setup the new Howl.
+        var sound = new Howl({
+          src: [action.payload['blobURL']]
         });
-        var config = {
-          'data': action.payload,
-        }
+
+
+        // Play the sound.
+        sound.play();
 
         console.log(action.payload.toString('base64'));
 

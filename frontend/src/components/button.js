@@ -49,7 +49,7 @@ class Button extends Component {
             onStop={this.onStop}
             strokeColor="#000000"
             backgroundColor="#FFFFFF"
-            mimeType="audio/wav"
+            mimeType="audio/flac"
             audioBitsPerSecond={16000} />
         </PushButton>
 

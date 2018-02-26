@@ -7,7 +7,7 @@ import {Howl, Howler} from 'howler';
 
 // axios.defaults.xsrfCookieName = 'csrftoken';
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.post['Content-Type'] = 'audio/x-flac; rate=1600';
 
 
 class TextStore extends EventEmitter {
@@ -49,36 +49,18 @@ class TextStore extends EventEmitter {
 
         // Making API request
         console.log(action.payload['blob'])
-        // axios.post('http://localhost:8000/api', qs.stringify({
-        //   'speech':action.payload,
-        // }))
-        // .then(function (response) {
-        //   console.log(response);
-        // })
-        // .catch(function (error) {
-        //   console.log(error);
-        // });
-        // var config = {
-        //   'data': action.payload,
-        // }
 
-        // Change global volume.
-        Howler.volume(0.5);
+        var object = action.payload['blob']
 
-        // Setup the new Howl.
-        var sound = new Howl({
-          src: [action.payload['blobURL']]
-        });
+          axios.post('http://localhost:8000/api/en/en', object)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
-
-        // Play the sound.
-        sound.play();
-
-        console.log(action.payload.toString('base64'));
-
-        // res = apiCaller(request);
-
-        this.updateText("res");
+          this.updateText("res");
       }
     }
   }

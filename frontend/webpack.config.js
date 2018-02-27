@@ -34,6 +34,9 @@ module.exports = {
     path: __dirname + "/dist/",
     filename: "index.min.js"
   },
+  node: {
+  fs: 'empty'
+},
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),

@@ -4,10 +4,9 @@ import { apiCaller } from '../apiCall';
 import axios from 'axios'
 var qs = require('qs');
 import {Howl, Howler} from 'howler';
-
 // axios.defaults.xsrfCookieName = 'csrftoken';
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.headers.post['Content-Type'] = 'audio/x-flac; rate=1600';
+axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
 
 
 class TextStore extends EventEmitter {
@@ -51,6 +50,7 @@ class TextStore extends EventEmitter {
         console.log(action.payload['blob'])
 
         var object = action.payload['blob']
+
 
           axios.post('http://localhost:8000/api/en/en', object)
           .then(function (response) {

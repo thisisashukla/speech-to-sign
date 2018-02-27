@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from SpeechToText.streamInput import MicrophoneStream
 
+from pydub import AudioSegment
 # Import the base64 encoding library.
 import base64
 
@@ -23,7 +24,7 @@ def encode_audio(audio):
 def toText(speech_chunk, src_lang='en'):
     # printing information for sanility check
     print("source language {}".format(src_lang))
-    print(speech_chunk)
+    print('speech_chunk received {}'.format(type(speech_chunk)))
     # print("target language {}".format(trgt_lang))
 
     # # Audio recording parameters
@@ -82,24 +83,37 @@ def toText(speech_chunk, src_lang='en'):
     #         print('Text output '+text)
     #         transciptionResponse={'text':text}
     #         return transciptionResponse
-    with io.open('F:\\audio.raw', 'rb') as audio_file:
+    with io.open('F:\\output.wav', 'rb') as audio_file:
         content = audio_file.read()
 
+    ogg = AudioSegment.from_ogg(speech_chunk)
+    print(type(ogg))
+
+    codecs={
+        'FLAC': enums.RecognitionConfig.AudioEncoding.FLAC ,
+        'LINEAR16': enums.RecognitionConfig.AudioEncoding.LINEAR16,
+        'MULAW': enums.RecognitionConfig.AudioEncoding.MULAW,
+        'AMR': enums.RecognitionConfig.AudioEncoding.AMR,
+        'AMR_WB': enums.RecognitionConfig.AudioEncoding.AMR_WB,
+        'OGG_OPUS': enums.RecognitionConfig.AudioEncoding.OGG_OPUS}
+
     client = speech.SpeechClient()
-    audio = types.RecognitionAudio(content=encode_audio(speech_chunk))
+    audio = types.RecognitionAudio(content=speech_chunk)
+    text=[]
     config = types.RecognitionConfig(
-        encoding=enums.RecognitionConfig.AudioEncoding.FLAC,
-        sample_rate_hertz=16000,
+        encoding=enums.RecognitionConfig.AudioEncoding.OGG_OPUS,
+        sample_rate_hertz=48000,
         language_code='en-US')
 
     response = client.recognize(config, audio)
     # Each result is for a consecutive portion of the audio. Iterate through
     # them to get the transcripts for the entire audio file.
-    text=[]
     for result in response.results:
         # The first alternative is the most likely one for this portion.
+        print(result)
         print('Transcript: {}'.format(result.alternatives[0].transcript))
         text.append(result.alternatives[0].transcript)
+        print(response)
+        print(type(response))
 
-    print(response)
     return JsonResponse(text, safe=False)

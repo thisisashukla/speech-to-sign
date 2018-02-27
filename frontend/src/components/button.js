@@ -48,11 +48,8 @@ class Button extends Component {
             className="sound-wave"
             onStop={this.onStop}
             strokeColor="#000000"
-            backgroundColor="#FFFFFF"
-            mimeType="audio/flac"
-            audioBitsPerSecond={16000} />
+            backgroundColor="#FFFFFF"/>
         </PushButton>
-
       </div>
     );
   }

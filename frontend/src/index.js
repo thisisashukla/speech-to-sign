@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { Title } from './styles';
 import Gif from './components/gif';
-import PushButton from './components/button';
+import Transcriber from './components/transcriber';
 import Transcription from './components/text';
 
 class Heading extends Component {
@@ -17,7 +17,7 @@ class Heading extends Component {
           <Gif/>
         </div>
         <div align="center">
-          <PushButton/>
+          <Transcriber/>
         </div>
         <div align="center">
           <Transcription/>

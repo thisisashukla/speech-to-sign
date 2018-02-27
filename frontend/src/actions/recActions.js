@@ -7,7 +7,7 @@ export function start(params) {
   })
 }
 
-export function stop() {
+export function stop(params) {
   dispatcher.dispatch({
     type: "STOP_RECOGNITION",
     payload: params

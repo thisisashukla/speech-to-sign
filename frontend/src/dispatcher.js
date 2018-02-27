@@ -1,5 +1,5 @@
 import { Dispatcher } from 'flux';
 
-var imgDispatcher = new Dispatcher();
+var dispatcher = new Dispatcher();
 
-export default imgDispatcher;
+export default dispatcher;

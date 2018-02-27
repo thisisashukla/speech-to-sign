@@ -53,35 +53,7 @@ class Transcriber extends Component {
     var useTokenAuth = false;
 
     var authentication = new SDK.CognitiveSubscriptionKeyAuthentication(subscriptionKey);
-  //   var authentication = function() {
-  //     if (!useTokenAuth)
-  //       return new SDK.CognitiveSubscriptionKeyAuthentication(subscriptionKey);
-  //
-  //     var callback = function() {
-  //       var tokenDeferral = new SDK.Deferred();
-  //       try {
-  //         var xhr = new(XMLHttpRequest || ActiveXObject)('MSXML2.XMLHTTP.3.0');
-  //         xhr.open('GET', '/token', 1);
-  //         xhr.onload = function () {
-  //         if (xhr.status === 200)  {
-  //           console.log('status==200');
-  //           tokenDeferral.Resolve(xhr.responseText);
-  //         }
-  //         else {
-  //           tokenDeferral.Reject('Issue token request failed.');
-  //         }
-  //       };
-  //       xhr.send();
-  //     }
-  //      catch (e) {
-  //       window.console && console.log(e);
-  //       tokenDeferral.Reject(e.message);
-  //     }
-  //     return tokenDeferral.Promise();
-  //   }
-  //
-  //   return new SDK.CognitiveTokenAuthentication(callback, callback);
-  // }();
+
 
   console.log('authenticate',authentication);
   console.log(SDK.CreateRecognizer(recognizerConfig, authentication));

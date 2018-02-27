@@ -13,16 +13,30 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015', 'stage-0'],
+          presets: ['react', 'es2015', 'stage-0', 'stage-1'],
           plugins: ['react-html-attrs', 'transform-react-jsx', 'transform-decorators-legacy', 'transform-class-properties'],
         }
-      }
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: "./images/[hash].[ext]"
+            }
+          }
+        ]
+      },
     ]
   },
   output: {
     path: __dirname + "/dist/",
     filename: "index.min.js"
   },
+  node: {
+  fs: 'empty'
+},
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),

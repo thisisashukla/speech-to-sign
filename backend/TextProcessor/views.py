@@ -10,7 +10,7 @@ from google.cloud.language import types as types
 from google.protobuf.json_format import MessageToJson,MessageToDict
 
 # Create your views here.
-def text_translate(request,src_text, trgt_lang):
+def text_translate(src_text, trgt_lang):
     translate_client = translate.Client()
 
     if isinstance(src_text, six.binary_type):
@@ -25,9 +25,9 @@ def text_translate(request,src_text, trgt_lang):
     print(u'Translation: {}'.format(result['translatedText'].encode("utf-8")))
     print(u'Detected source language: {}'.format(result['detectedSourceLanguage']))
 
-    return HttpResponse(result['translatedText'])
+    return result['translatedText']
 
-def analyse(request,src_text,src_lang):
+def analyse(src_text,src_lang):
     # Instantiates a client
     client = language.LanguageServiceClient()
 
@@ -47,9 +47,9 @@ def analyse(request,src_text,src_lang):
     for token in tokens:
         dict.update({token['text']['content']:token['partOfSpeech']['tag']})
     print(dict)
-    return HttpResponse(dict)
+    return dict
 
-def detect_language(request,src_text):
+def detect_language(src_text):
     """Detects the text's language."""
     translate_client = translate.Client()
 
@@ -62,4 +62,4 @@ def detect_language(request,src_text):
     print('Confidence: {}'.format(result['confidence']))
     print('Language: {}'.format(result['language']))
 
-    return HttpResponse(result['language'])
+    return result['language']

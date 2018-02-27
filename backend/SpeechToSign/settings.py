@@ -39,9 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Application.apps.ApplicationConfig',
-    'SpeechToText.apps.SpeechtotextConfig',
-    'TextProcessor.apps.TextprocessorConfig',
-    'TextToSign.apps.TexttosignConfig'
 ]
 
 MIDDLEWARE_CLASSES = [

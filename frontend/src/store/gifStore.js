@@ -44,7 +44,7 @@ class GifStore extends EventEmitter {
         {
           var {src_lang, trgt_lang} = LanguageStore.getLanguage();
           console.log(src_lang,trgt_lang);
-          apiCaller.backendRequest('api/' + this.src_lang + '/' + this.trgt_lang, (response) => {}, (error) => {})
+          apiCaller.backendRequest('api/' + src_lang + '/' + trgt_lang, (response) => {}, (error) => {})
           break;
         }
       }

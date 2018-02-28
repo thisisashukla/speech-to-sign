@@ -71,7 +71,7 @@ class Transcriber extends Component {
     }
 
     // console.log('going to intialize reconizer with', subsKey, language, outputFormat, inptSrc, regMode);
-    this.state.recognizer = this.recognizerSetup(regMode, language, outputFormat, subsKey);
+    return this.recognizerSetup(regMode, language, outputFormat, subsKey);
     // console.log('recognizer set',this.recognizer);
   }
 
@@ -83,9 +83,10 @@ class Transcriber extends Component {
       formatOptn: formatOptn,
       inptSrc: inptSrc,
       regMode: regMode,
-      status: false
+      status: false,
+      recognizer: this.setup(subsKey, language, formatOptn, inptSrc, regMode)
     })
-    this.setup(subsKey, language, formatOptn, inptSrc, regMode)
+
   }
 
   toggleRecording = () => {

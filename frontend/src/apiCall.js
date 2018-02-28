@@ -1,18 +1,14 @@
-// export function apiCaller(request) {
-//
-//   axios.get(request.url, {
-//     params: {
-//       blob: request.payload
-//     }
-//   })
-//   .then(function(response) {
-//     console.log(response);
-//   };
-//   return (response);
-//   )
-//   .catch(function(error) {
-//     console.log(error);
-//   };
-//   return(error)
-//   );
-// }
+import axios from 'axios'
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.headers.post['Content-Type'] = 'text/plain';
+
+var BASE_URL = 'http://localhost:8000/';
+
+export function backendRequest(URL,params,sucess,failure) => {
+  axios.get(URL,{
+    params: params
+  })
+  .then(success(response))
+  .catch(failure(error))
+};

@@ -62,10 +62,12 @@ class TranscriberStore extends EventEmitter {
           break;
         case "SpeechSimplePhraseEvent" :
           this.transcript=event.Result;
+          this.recognitionStatus="Recognition Succeeded";
           this.emit("success");
           break;
         case "SpeechDetailedPhraseEvent" :
           this.transcript=event.Result
+          this.recognitionStatus="Recognition Succeeded";
           this.emit("success");
           break;
         case "RecognitionEndedEvent" :

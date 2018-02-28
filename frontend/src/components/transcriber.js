@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as RecAction from '../actions/transcriberActions';
+import * as TrnscbrActions from '../actions/transcriberActions';
 import { PushButton } from '../styles';
 import * as SDK from 'microsoft-speech-browser-sdk';
 import TranscriberStore from '../store/transcriberStore';
@@ -63,7 +63,7 @@ class Transcriber extends Component {
 
   setup = (subsKey, language, formatOptn, inptSrc, regMode) => {
       if (this.recognizer != null) {
-          RecAction.stop([SDK, this.recognizer]);
+          TrnscbrActions.stop([SDK, this.recognizer]);
       }
       var outputFormat=null;
       // console.log('formats',SDK.SpeechResultFormat.Simple,SDK.SpeechResultFormat.Detailed);
@@ -97,14 +97,14 @@ class Transcriber extends Component {
   toggleRecording = () => {
     // console.log('toggle',this.recognizer);
     if(this.state.status)
-      RecAction.stop({
+      TrnscbrActions.stop({
         'SDK': SDK,
         'recognizer': this.recognizer,
       });
     else {
       // console.log('making starting recog call');
       // console.log('recognizer value',this.recognizer);
-      RecAction.start({
+      TrnscbrActions.start({
         'SDK': SDK,
         'recognizer': this.recognizer,
       });

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TranscriberStore from '../store/transcriberStore';
+import TxtAction from '../actions/textActions';
 // import ImageStore from '../store/gifStore';
 // import * as ImgAction from '../actions/gifActions';
 import { Text } from '../styles';
@@ -35,6 +36,7 @@ class Transcription extends Component {
         status: status,
         text: DisplayText,
       })
+      TxtActions.analyse(DisplayText);                  
     })
   }
 

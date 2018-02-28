@@ -1,18 +1,13 @@
 import { EventEmitter } from 'events';
 import dispatcher from '../dispatcher';
 import { apiCaller } from '../apiCall';
-import axios from 'axios'
-// axios.defaults.xsrfCookieName = 'csrftoken';
-// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-
-
-
 
 class TextStore extends EventEmitter {
   constructor(props) {
     super(props);
     this.text = 'SpeechToSign';
+    this.src_lang = 'en';
+    this.trgt_lang = 'en';
   }
 
   setDefault() {
@@ -32,13 +27,12 @@ class TextStore extends EventEmitter {
 
   handleActions(action) {
     switch(action.type) {
-      case 'START_RECORDING': {
-        this.setDefault();
-        break;
-      }
-      case 'STOP_RECORDING': {
-        console.log("update case")
-        this.updateText('nothing');
+      case 'ANALYSE_TEXT': {
+        apiCaller.backendRequest('api/'+this.src_lang+'/'+this.trgt_lang,(response) => {
+
+        }, (error) => {
+
+        })
         break;
       }
     }
@@ -49,6 +43,4 @@ class TextStore extends EventEmitter {
 const textStore = new TextStore;
 
 dispatcher.register(textStore.handleActions.bind(textStore))
-// window.store=gifStore;
-// window.dispatcher=dispatcher;
 export default textStore;

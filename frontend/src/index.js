@@ -5,6 +5,7 @@ import {Title} from './styles';
 import Gif from './components/gif';
 import Transcriber from './components/transcriber';
 import Transcription from './components/text';
+import Language from './components/language';
 
 class Heading extends Component {
   render() {
@@ -18,6 +19,9 @@ class Heading extends Component {
         </div>
         <div align="center">
           <Transcriber/>
+        </div>
+        <div align="center">
+          <Language/>
         </div>
         <div align="center">
           <Transcription/>

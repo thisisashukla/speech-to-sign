@@ -1,6 +1,8 @@
 import {EventEmitter} from 'events';
 import dispatcher from '../dispatcher';
 import images from '../images';
+import * as apiCaller from '../apiCaller';
+import LanguageStore from '../store/languageStore';
 
 class GifStore extends EventEmitter {
   constructor(props) {
@@ -38,15 +40,16 @@ class GifStore extends EventEmitter {
           this.setDefault();
           break;
         };
-      case 'UPDATE_GIF':
+      case 'TO_GIF':
         {
-          console.log("update case")
-          this.updateGif(action.payload);
+          var {src_lang, trgt_lang} = LanguageStore.getLanguage();
+          console.log(src_lang,trgt_lang);
+          apiCaller.backendRequest('api/' + this.src_lang + '/' + this.trgt_lang, (response) => {}, (error) => {})
           break;
-        };
+        }
+      }
     }
   }
-}
 
 const gifStore = new GifStore;
 

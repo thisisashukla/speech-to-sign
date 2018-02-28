@@ -10,15 +10,16 @@ class Transcriber extends Component {
     super(props);
     this.toggleRecording = this.toggleRecording.bind(this);
     // this.toggleRecording = this.toggleRecording.bind(this);
+    console.log('SETTING RECOGNIZER NULL');
     this.state = {
       subsKey: null,
       language: null,
       formatOptn: null,
       inptSrc: null,
-      regMode: null
+      regMode: null,
+      status: false,
+      recognizer: null
     };
-
-    this.recognizer = null;
   }
 
   recognizerSetup = (recognitionMode, language, format, subscriptionKey) => {
@@ -55,8 +56,8 @@ class Transcriber extends Component {
   }
 
   setup = (subsKey, language, formatOptn, inptSrc, regMode) => {
-    if (this.recognizer != null) {
-      TrnscbrActions.stop([SDK, this.recognizer]);
+    if (this.state.recognizer != null) {
+      TrnscbrActions.stop([SDK, this.state.recognizer]);
     }
     var outputFormat = null;
     // console.log('formats',SDK.SpeechResultFormat.Simple,SDK.SpeechResultFormat.Detailed);
@@ -70,7 +71,7 @@ class Transcriber extends Component {
     }
 
     // console.log('going to intialize reconizer with', subsKey, language, outputFormat, inptSrc, regMode);
-    this.recognizer = this.recognizerSetup(regMode, language, outputFormat, subsKey);
+    this.state.recognizer = this.recognizerSetup(regMode, language, outputFormat, subsKey);
     // console.log('recognizer set',this.recognizer);
   }
 
@@ -89,12 +90,18 @@ class Transcriber extends Component {
 
   toggleRecording = () => {
     // console.log('toggle',this.recognizer);
-    if (this.state.status)
-      TrnscbrActions.stop({'SDK': SDK, 'recognizer': this.recognizer});
+    if (this.state.status) {
+      this.state.status=false;
+      console.log(SDK,this.state.recogizer);
+      TrnscbrActions.stop({'SDK': SDK, 'recognizer': this.state.recognizer});
+    }
+
     else {
+      this.state.status=true;
       // console.log('making starting recog call');
       // console.log('recognizer value',this.recognizer);
-      TrnscbrActions.start({'SDK': SDK, 'recognizer': this.recognizer});
+      TrnscbrActions.start({'SDK': SDK, 'recognizer': this.state.recognizer});
+      console.log('after start',this.state.recognizer);
     }
 
   }

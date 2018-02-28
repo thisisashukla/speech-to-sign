@@ -1,5 +1,5 @@
 import dispatcher from "../dispatcher";
 
-export function analyse(text) {
-  dispatcher.dispatch({type: "ANALYSE_TEXT", payload: text})
+export function toGif(text) {
+  dispatcher.dispatch({type: "TO_GIF", payload: text})
 }

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
-import { Title } from './styles';
+import {Title} from './styles';
 import Gif from './components/gif';
 import Transcriber from './components/transcriber';
 import Transcription from './components/text';
@@ -29,4 +29,5 @@ class Heading extends Component {
 
 var root = document.getElementById('root');
 
-ReactDOM.render(<Heading />, root);
+ReactDOM.render(
+  <Heading/>, root);

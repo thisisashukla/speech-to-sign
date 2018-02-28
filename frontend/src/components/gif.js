@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ImageStore from '../store/gifStore';
 import * as ImgAction from '../actions/gifActions';
-import { Image } from '../styles';
+import {Image} from '../styles';
 import images from '../images';
 
 class Gif extends Component {
@@ -10,21 +10,19 @@ class Gif extends Component {
     this.updateGif = this.updateGif.bind(this);
     this.defaultGif = this.defaultGif.bind(this);
     this.state = {
-      gif: ImageStore.getDefault(),
+      gif: ImageStore.getDefault()
     };
   }
 
   componentWillMount() {
     ImageStore.on("change", () => {
-      this.setState({
-        gif: ImageStore.getGif(),
-      })
+      this.setState({gif: ImageStore.getGif()})
     })
   }
 
   updateGif() {
     console.log("update action")
-    var path=images.newGif;
+    var path = images.newGif;
     ImgAction.updateGif(path)
   }
 
@@ -34,7 +32,7 @@ class Gif extends Component {
   }
 
   render() {
-    const { gif } = this.state;
+    const {gif} = this.state;
     // console.log(gif)
     return (
       <div>

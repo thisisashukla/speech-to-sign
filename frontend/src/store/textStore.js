@@ -1,6 +1,6 @@
-import { EventEmitter } from 'events';
+import {EventEmitter} from 'events';
 import dispatcher from '../dispatcher';
-import { apiCaller } from '../apiCall';
+import {apiCaller} from '../apiCaller';
 
 class TextStore extends EventEmitter {
   constructor(props) {
@@ -26,19 +26,15 @@ class TextStore extends EventEmitter {
   }
 
   handleActions(action) {
-    switch(action.type) {
-      case 'ANALYSE_TEXT': {
-        apiCaller.backendRequest('api/'+this.src_lang+'/'+this.trgt_lang,(response) => {
-
-        }, (error) => {
-
-        })
-        break;
-      }
+    switch (action.type) {
+      case 'ANALYSE_TEXT':
+        {
+          apiCaller.backendRequest('api/' + this.src_lang + '/' + this.trgt_lang, (response) => {}, (error) => {})
+          break;
+        }
     }
   }
 }
-
 
 const textStore = new TextStore;
 

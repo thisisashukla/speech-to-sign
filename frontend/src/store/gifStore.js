@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import {EventEmitter} from 'events';
 import dispatcher from '../dispatcher';
 import images from '../images';
 
@@ -6,7 +6,7 @@ class GifStore extends EventEmitter {
   constructor(props) {
     super(props);
     // let img=require('../../assests/images/sign.gif');
-    this.gif=images.defaultGif;
+    this.gif = images.defaultGif;
   }
 
   getDefault() {
@@ -20,8 +20,8 @@ class GifStore extends EventEmitter {
   }
 
   updateGif(newGif) {
-    console.log("udpate called",newGif)
-    this.gif=newGif;
+    console.log("udpate called", newGif)
+    this.gif = newGif;
     this.emit("change");
   }
 
@@ -31,21 +31,22 @@ class GifStore extends EventEmitter {
   }
 
   handleActions(action) {
-    switch(action.type) {
-      case 'DEFAULT_GIF': {
-        console.log("Default case")
-        this.setDefault();
-        break;
-      };
-      case 'UPDATE_GIF': {
-        console.log("update case")
-        this.updateGif(action.payload);
-        break;
-      };
+    switch (action.type) {
+      case 'DEFAULT_GIF':
+        {
+          console.log("Default case")
+          this.setDefault();
+          break;
+        };
+      case 'UPDATE_GIF':
+        {
+          console.log("update case")
+          this.updateGif(action.payload);
+          break;
+        };
     }
   }
 }
-
 
 const gifStore = new GifStore;
 

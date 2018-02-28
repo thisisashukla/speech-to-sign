@@ -8,14 +8,9 @@ export function startRecording(path) {
 }
 
 export function stopRecording() {
-  dispatcher.dispatch({
-    type: "STOP_RECORDING",
-  })
+  dispatcher.dispatch({type: "STOP_RECORDING"})
 }
 
 export function sttApiCall(speechBlob) {
-  dispatcher.dispatch({
-    type: "SPEECH_TO_TEXT",
-    payload: speechBlob,
-  })
+  dispatcher.dispatch({type: "SPEECH_TO_TEXT", payload: speechBlob})
 }

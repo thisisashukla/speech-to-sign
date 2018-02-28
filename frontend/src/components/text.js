@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TextStore from '../store/textStore';
+import TranscriberStore from '../store/transcriberStore';
 // import ImageStore from '../store/gifStore';
 // import * as ImgAction from '../actions/gifActions';
 import { Text } from '../styles';
@@ -8,21 +8,29 @@ class Transcription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: TextStore.getText(),
+      status: null,
+      transcript: null,
     };
   }
 
   componentWillMount() {
-    TextStore.on("change", () => {
+    TranscriberStore.on("change", () => {
+      var [ status, text, append ] = TranscriberStore.getResult();
+      if(append)
+        text=this.state.transcript+text;
       this.setState({
-        text: TextStore.getText(),
+        status: status,
+        text: text,
       })
     })
   }
 
   render() {
     return (
-      <Text>{this.state.text}</Text>
+      <div>
+        <Text>{this.state.status}</Text>
+        <Text>{this.state.text}</Text>
+      </div>
     );
   }
 }

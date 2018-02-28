@@ -13,7 +13,7 @@ class TranscriberStore extends EventEmitter {
     this.recognizer=null;
     }
 
-  getOutput = () => {
+  getResult() {
     return [this.recognitionStatus,this.transcript, this.btnActivate];
   }
 

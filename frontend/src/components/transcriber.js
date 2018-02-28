@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as RecAction from '../actions/recActions';
+import * as RecAction from '../actions/transcriberActions';
 import { PushButton } from '../styles';
 import * as SDK from 'microsoft-speech-browser-sdk';
 import TranscriberStore from '../store/transcriberStore';

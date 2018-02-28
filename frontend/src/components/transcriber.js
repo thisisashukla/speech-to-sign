@@ -23,7 +23,7 @@ class Transcriber extends Component {
 
   recognizerSetup = (recognitionMode, language, format, subscriptionKey) => {
 
-    console.log('setting up recognizer with',recognitionMode, language, format, subscriptionKey)
+    // console.log('setting up recognizer with',recognitionMode, language, format, subscriptionKey)
 
     switch (recognitionMode) {
       case "Interactive" :
@@ -48,15 +48,15 @@ class Transcriber extends Component {
           language, // Supported languages are specific to each recognition mode. Refer to docs.
           format); // SDK.SpeechResultFormat.Simple (Options - Simple/Detailed)
 
-    console.log('rec confog',recognizerConfig);
+    // console.log('rec confog',recognizerConfig);
 
     var useTokenAuth = false;
 
     var authentication = new SDK.CognitiveSubscriptionKeyAuthentication(subscriptionKey);
 
 
-  console.log('authenticate',authentication);
-  console.log(SDK.CreateRecognizer(recognizerConfig, authentication));
+  // console.log('authenticate',authentication);
+  // console.log(SDK.CreateRecognizer(recognizerConfig, authentication));
 
   return SDK.CreateRecognizer(recognizerConfig, authentication);
   }
@@ -76,9 +76,9 @@ class Transcriber extends Component {
           break;
       }
 
-      console.log('going to intialize reconizer with', subsKey, language, outputFormat, inptSrc, regMode);
+      // console.log('going to intialize reconizer with', subsKey, language, outputFormat, inptSrc, regMode);
       this.recognizer= this.recognizerSetup(regMode, language, outputFormat, subsKey);
-      console.log('recognizer set',this.recognizer);
+      // console.log('recognizer set',this.recognizer);
   }
 
   componentWillMount() {
@@ -95,15 +95,15 @@ class Transcriber extends Component {
   }
 
   toggleRecording = () => {
-    console.log('toggle',this.recognizer);
+    // console.log('toggle',this.recognizer);
     if(this.state.status)
       RecAction.stop({
         'SDK': SDK,
         'recognizer': this.recognizer,
       });
     else {
-      console.log('making starting recog call');
-      console.log('recognizer value',this.recognizer);
+      // console.log('making starting recog call');
+      // console.log('recognizer value',this.recognizer);
       RecAction.start({
         'SDK': SDK,
         'recognizer': this.recognizer,

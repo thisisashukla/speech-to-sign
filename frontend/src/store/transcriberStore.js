@@ -14,12 +14,12 @@ class TranscriberStore extends EventEmitter {
     }
 
   getResult() {
-    return [this.recognitionStatus,this.transcript, this.btnActivate];
+    return [this.recognitionStatus, this.transcript, this.append];
   }
 
   // Start the recognition
   recognizerStart = () => {
-    console.log('inside starteer',this.recognizer)
+    // console.log('inside starteer',this.recognizer)
     this.recognizer.Recognize((event) => {
       /*
       Alternative syntax for typescript devs.
@@ -61,12 +61,12 @@ class TranscriberStore extends EventEmitter {
           this.emit("change");
           break;
         case "SpeechSimplePhraseEvent" :
-          this.transcript=JSON.stringify(event.Result, null, 3);
-          this.emit("change");
+          this.transcript=event.Result;
+          this.emit("success");
           break;
         case "SpeechDetailedPhraseEvent" :
-          this.transcript=JSON.stringify(event.Result, null, 3);
-          this.emit("change");
+          this.transcript=event.Result
+          this.emit("success");
           break;
         case "RecognitionEndedEvent" :
           this.btnStatus=true;
@@ -92,21 +92,21 @@ class TranscriberStore extends EventEmitter {
     handleActions(action) {
       switch(action.type) {
         case 'START_RECOGNITION': {
-          console.log("Starting recognition")
+          // console.log("Starting recognition")
           this.SDK=action.payload['SDK'];
           this.recognizer=action.payload['recognizer'];
-          console.log(action.payload);
-          console.log('handling start recog action',this.SDK,this.recognizer);
-          console.log('this.recog',this.recognizer);
+          // console.log(action.payload);
+          // console.log('handling start recog action',this.SDK,this.recognizer);
+          // console.log('this.recog',this.recognizer);
           this.recognizerStart()
           break;
         };
         case 'STOP_RECOGNITION': {
-          console.log("update case");
+          // console.log("update case");
           this.SDK=action.payload['SDK'];
           this.recognizer=action.payload['recognizer'];
-          console.log('handling start recog action',this.SDK,this.recognizer);
-          console.log('this.recog',this.recognizer);
+          // console.log('handling start recog action',this.SDK,this.recognizer);
+          // console.log('this.recog',this.recognizer);
           this.recognizerStop();
           break;
         };

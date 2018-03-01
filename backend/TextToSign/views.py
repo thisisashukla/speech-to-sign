@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render
 from azure.storage.blob import BlockBlobService
 # Create your views here.
@@ -21,3 +22,18 @@ def getBlobList():
 
     print(list)
     return list
+
+
+def getEntityImageURL(entity):
+    URL='https://api.cognitive.microsoft.com/bing/v7.0/images/search'
+    subscription_key='5fae96554fda4fec9918c59af4201707'
+    headers = {"Ocp-Apim-Subscription-Key" : subscription_key}
+    params  = {"q": entity, "license": "public", "imageType": "photo"}
+    response = requests.get(URL, headers=headers, params=params)
+    response.raise_for_status()
+    search_results = response.json()
+    most_relevant=search_results['relatedSearches'][0]
+    thumbnail_url=most_relevant['thumbnail']['thumbnailUrl']
+    result={'entity':entity, 'URL':thumbnail_url}
+
+    return result

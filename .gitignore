@@ -9,6 +9,7 @@
 # production
 /build
 /backend/SpeechToSign/subscriptionKeys.py
+/frontend/src/subscriptionKeys.js
 
 # misc
 .DS_Store

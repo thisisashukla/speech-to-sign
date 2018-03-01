@@ -4,7 +4,7 @@ import {PushButton} from '../styles';
 import * as SDK from 'microsoft-speech-browser-sdk';
 import TranscriberStore from '../store/transcriberStore';
 import {string, number, bool, func} from 'prop-types';
-
+import { MS_SpeechKey } from '../subscriptionKeys';
 class Transcriber extends Component {
   constructor(props) {
     super(props);
@@ -126,7 +126,7 @@ Transcriber.propTypes = {
 };
 
 Transcriber.defaultProps = {
-  subsKey: 'df83dc8986af49d28f37e3cbb49d2519',
+  subsKey: MS_SpeechKey,
   language: 'en-US',
   formatOptn: 'Simple',
   inptSrc: 'Mic',

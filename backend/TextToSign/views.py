@@ -1,6 +1,7 @@
 import requests
 from django.shortcuts import render
 from azure.storage.blob import BlockBlobService
+from SpeechToSign.subscriptionKeys import getKey
 # Create your views here.
 def getGifs(tokens,analysis,entity_analysis,lang):
     # print('hello')
@@ -14,7 +15,7 @@ def getGifs(tokens,analysis,entity_analysis,lang):
 
 
 def getBlobList():
-    block_blob_service = BlockBlobService(account_name='gifData', account_key='tXcPC2c26DsOIfrlVCLTpcEA8Jkr0VIcqYkIoTAjhifwwobDuRPrUtlwquJ0Tg55KhqmPuAcBKZO60xXuri8jg==/w+zyIZLd2F/d/BJw4OLxzbMl0Z5g4g4YSg0m1lNqd41cOgJa7F7iPdf0LnyUDA==')
+    block_blob_service = BlockBlobService(account_name='gifData', account_key=getKey('MS_Storage'))
     generator = block_blob_service.list_blobs('gifbucket')
     list=[]
     for blob in generator:
@@ -26,7 +27,7 @@ def getBlobList():
 
 def getEntityImageURL(entity):
     URL='https://api.cognitive.microsoft.com/bing/v7.0/images/search'
-    subscription_key='5fae96554fda4fec9918c59af4201707'
+    subscription_key=getKey('MS_ImageSearch')
     headers = {"Ocp-Apim-Subscription-Key" : subscription_key}
     params  = {"q": entity, "license": "public", "imageType": "photo"}
     response = requests.get(URL, headers=headers, params=params)

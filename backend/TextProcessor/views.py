@@ -113,7 +113,7 @@ def entity_analyzer(text):
     return result, entityNames
 
 
-def entityTokenizer(txt,entities):
+def entityTokenizer(txt,entities,analysis):
     nlp = spacy.blank('en')
     matcher = PhraseMatcher(nlp.vocab)
     terminology_list = entities
@@ -126,6 +126,7 @@ def entityTokenizer(txt,entities):
     entityList=[]
     entityLoc=[]
     complexTokens=[]
+    labels=[]
     prev=0
     for match in matches:
         temp=[]
@@ -136,9 +137,11 @@ def entityTokenizer(txt,entities):
         if(prev!=match[1]):
             for j in range(prev,match[1]):
                 complexTokens.append(simpleTokens[j])
+                labels.append(analysis[simpleTokens[j]])
             complexTokens.append(entityList[-1])
+            labels.append('ENTITY')
             entityLoc.append(len(complexTokens)-1)
 
         prev=match[2]
 
-    return complexTokens,entityLoc
+    return complexTokens,entityLoc, labels

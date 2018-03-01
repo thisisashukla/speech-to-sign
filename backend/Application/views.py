@@ -20,16 +20,17 @@ def textHandler(request,src_lang='en',trgt_lang='en'):
     src_txt=' '.join(raw_tokens)
     if(src_lang!=trgt_lang):
         trgt_txt=text_translate(src_txt, src_lang, trgt_lang)
-        print('successful translation')
+        # print('successful translation')
     else:
         trgt_txt=src_txt
 
     trgt_analysis=analyse(trgt_txt, trgt_lang)
     entity_analysis,entities=entity_analyzer(trgt_txt)
-    print('print',trgt_analysis, entity_analysis)
-    tokens,entityLocs=entityTokenizer(src_txt,entities)
-    print(tokens, entityLocs)
-    gifs=getGifs(tokens,trgt_analysis,entity_analysis,trgt_lang)
+    # print('print',trgt_analysis, entity_analysis, entities)
+    tokens,entityLocs, tokenLabels=entityTokenizer(trgt_txt,entities,trgt_analysis)
+    # print(tokens, entityLocs, tokenLabels)
+
+    gifs=getGifs(tokens,trgt_analysis,entity_analysis,entityLocs, tokenLabels)
 
     response={'src_txt':src_txt,'trgt_txt':trgt_txt, 'gif_array': gifs, 'anaysis':trgt_analysis}
     return JsonResponse(response, safe=False)

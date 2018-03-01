@@ -3,7 +3,7 @@ from django.shortcuts import render
 from azure.storage.blob import BlockBlobService
 from SpeechToSign.subscriptionKeys import getKey
 # Create your views here.
-def getGifs(tokens,analysis,entity_analysis,lang):
+def getGifs(tokens,trgt_analysis,entity_analysis,entityLocs, tokenLabels):
     # print('hello')
 
     # signList=getBlobList()

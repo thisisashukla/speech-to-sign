@@ -8,19 +8,8 @@ from google.cloud.speech import enums
 from google.cloud.speech import types
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
-from SpeechToText.streamInput import MicrophoneStream
-
-from pydub import AudioSegment
-# Import the base64 encoding library.
-import base64
-
-# Pass the audio data to an encoding function.
-def encode_audio(audio):
-  # audio_content = audio.read()
-  return base64.b64encode(audio)
 
 # Create your views here.
-
 def toText(speech_chunk, src_lang='en'):
     # printing information for sanility check
     print("source language {}".format(src_lang))

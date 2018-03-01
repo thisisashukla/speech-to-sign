@@ -5,65 +5,37 @@ from django.http import HttpResponse,JsonResponse
 
 sys.path.append('../')
 from SpeechToText.views import toText
-from TextProcessor.views import analyse, text_translate
-from TextToSign.views import makegif
+from TextProcessor.views import analyse, text_translate, entity_analyzer, entityTokenizer
+from TextToSign.views import getGifs
 from django.views.decorators.csrf import csrf_exempt
-# Import the base64 encoding library.
-import base64
-
-# Pass the audio data to an encoding function.
-def encode_audio(audio):
-
-  return base64.b64encode(audio)
-
-
-# Create your views here.
-def index(request):
-    json={'render':'index.html'}
-    return JsonResponse(json)
-
-# def main(request,lang='en'):
-#
-#     # API calling method
-#
-#     # getting src_txt transcription
-#     src_txt = toText(request.speech, lang, lang)
-#
-#     # processing text
-#     src_analysis=analyse(src_txt, lang)
-#
-#     # converting to sign
-#     gifResponse=makegif(src_txt, src_analysis, lang)
-#
-#     response={'text':src_txt,'gifResponse':gifResponse}
-#     return JsonResponse(response)
-
+import json
 
 @csrf_exempt
-def speechToText(request,src_lang='en',trgt_lang='en'):
-    print('hello')
-    # API calling method
-    # print(len(request.body))
-    # getting src_txt transcription
-    # audio=encode_audio(request.body)
-    # print(type(audio))
-    src_txt = toText(request.body, src_lang)
+def textHandler(request,src_lang='en',trgt_lang='en'):
 
-    print('successful transciption')
-    # processing text
+    raw_txt=request.body.decode("utf-8")
+    raw_tokens=raw_txt.split('=')[1].split('%2B')
+    # print(tokens)
+    trgt_txt=None
+    src_txt=' '.join(raw_tokens)
     if(src_lang!=trgt_lang):
         trgt_txt=text_translate(src_txt, src_lang, trgt_lang)
+        # print('successful translation')
     else:
         trgt_txt=src_txt
 
-    print('successful translation')
-    # # converting to sign
-    # gifResponse=makegif(trgt_txt,trgt_analysis,trgt_lang)
-    #
-    response={'src_txt':src_txt,'trgt_txt':trgt_txt}
+    trgt_analysis=analyse(trgt_txt, trgt_lang)
+    entity_analysis,entities=entity_analyzer(trgt_txt)
+    # print('print',trgt_analysis, entity_analysis, entities)
+    tokens,entityLocs, tokenLabels=entityTokenizer(trgt_txt,entities,trgt_analysis)
+    # print(tokens, entityLocs, tokenLabels)
+
+    gifs=getGifs(tokens,trgt_analysis,entity_analysis,entityLocs, tokenLabels)
+
+    response={'src_txt':src_txt,'trgt_txt':trgt_txt, 'gif_array': gifs, 'anaysis':trgt_analysis}
     return JsonResponse(response, safe=False)
 
-def textToSign(request, trgt_lang='en'):
+def textToSign(analysis, trgt_lang='en'):
 
     # API calling method
 

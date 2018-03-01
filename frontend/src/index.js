@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
-import { Title } from './styles';
+import {Title} from './styles';
 import Gif from './components/gif';
 import Transcriber from './components/transcriber';
 import Transcription from './components/text';
+import Language from './components/language';
 
 class Heading extends Component {
   render() {
@@ -20,6 +21,9 @@ class Heading extends Component {
           <Transcriber/>
         </div>
         <div align="center">
+          <Language/>
+        </div>
+        <div align="center">
           <Transcription/>
         </div>
       </div>
@@ -29,4 +33,5 @@ class Heading extends Component {
 
 var root = document.getElementById('root');
 
-ReactDOM.render(<Heading />, root);
+ReactDOM.render(
+  <Heading/>, root);

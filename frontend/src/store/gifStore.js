@@ -1,12 +1,14 @@
-import { EventEmitter } from 'events';
+import {EventEmitter} from 'events';
 import dispatcher from '../dispatcher';
 import images from '../images';
+import * as apiCaller from '../apiCaller';
+import LanguageStore from '../store/languageStore';
 
 class GifStore extends EventEmitter {
   constructor(props) {
     super(props);
     // let img=require('../../assests/images/sign.gif');
-    this.gif=images.defaultGif;
+    this.gif = images.defaultGif;
   }
 
   getDefault() {
@@ -20,8 +22,8 @@ class GifStore extends EventEmitter {
   }
 
   updateGif(newGif) {
-    console.log("udpate called",newGif)
-    this.gif=newGif;
+    console.log("udpate called", newGif)
+    this.gif = newGif;
     this.emit("change");
   }
 
@@ -31,21 +33,23 @@ class GifStore extends EventEmitter {
   }
 
   handleActions(action) {
-    switch(action.type) {
-      case 'DEFAULT_GIF': {
-        console.log("Default case")
-        this.setDefault();
-        break;
-      };
-      case 'UPDATE_GIF': {
-        console.log("update case")
-        this.updateGif(action.payload);
-        break;
-      };
+    switch (action.type) {
+      case 'DEFAULT_GIF':
+        {
+          console.log("Default case")
+          this.setDefault();
+          break;
+        };
+      case 'TO_GIF':
+        {
+          var {src_lang, trgt_lang} = LanguageStore.getLanguage();
+          console.log(src_lang,trgt_lang);
+          apiCaller.backendRequest('api/' + src_lang + '/' + trgt_lang, action.payload, (response) => {}, (error) => {})
+          break;
+        }
+      }
     }
   }
-}
-
 
 const gifStore = new GifStore;
 

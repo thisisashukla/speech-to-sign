@@ -1,28 +1,48 @@
-import React, { Component } from 'react';
-import TextStore from '../store/textStore';
+import React, {Component} from 'react';
+import TranscriberStore from '../store/transcriberStore';
+import * as TxtActions from '../actions/textActions';
 // import ImageStore from '../store/gifStore';
 // import * as ImgAction from '../actions/gifActions';
-import { Text } from '../styles';
+import {Text} from '../styles';
 
 class Transcription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: TextStore.getText(),
+      status: null,
+      transcript: 'Your Text Appears here'
     };
   }
 
   componentWillMount() {
-    TextStore.on("change", () => {
+    TranscriberStore.on("change", () => {
+      var [ status, text, append ] = TranscriberStore.getResult();
+      console.log('transcript',text, append)
+      if(append)
+        text=this.state.transcript+text;
       this.setState({
-        text: TextStore.getText(),
+        status: status,
+        transcript: text,
       })
+    })
+
+    TranscriberStore.on("success", () => {
+      var [ status, result, append ] = TranscriberStore.getResult();
+      var { RecognitionStatus, DisplayText, Offset, Duration } = result;
+      this.setState({
+        status: status,
+        transcript: DisplayText,
+      })
+      TxtActions.toGif(DisplayText);
     })
   }
 
   render() {
     return (
-      <Text>{this.state.text}</Text>
+      <div>
+        <Text>{this.state.status}</Text>
+        <Text>{this.state.transcript}</Text>
+      </div>
     );
   }
 }

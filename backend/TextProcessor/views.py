@@ -94,21 +94,20 @@ def entity_analyzer(text):
     entity_type = ('UNKNOWN', 'PERSON', 'LOCATION', 'ORGANIZATION',
                    'EVENT', 'WORK_OF_ART', 'CONSUMER_GOOD', 'OTHER', 'FOOD')
 
-    result=[]
+    result={}
     entityNames=[]
     for entity in entities:
-        # print('=' * 20)
-        # print(u'{:<16}: {}'.format('name', entity.name))
-        # print(u'{:<16}: {}'.format('metadata', entity.metadata))
-        # print(u'{:<16}: {}'.format('type', entity_type[entity.type]))
-        # print(u'{:<16}: {}'.format('salience', entity.salience))
-        # print(u'{:<16}: {}'.format('wikipedia_url',
-        #       entity.metadata.get('wikipedia_url', '-')))
-        metadata=entity.metadata.get('wikipedia_url', '-')
-        if(metadata=='-'):
-            metadata=getEntityImageURL(entity.name)['URL']
+        print('=' * 20)
+        print(u'{:<16}: {}'.format('name', entity.name))
+        print(u'{:<16}: {}'.format('metadata', entity.metadata))
+        print(u'{:<16}: {}'.format('type', entity_type[entity.type]))
+        print(u'{:<16}: {}'.format('salience', entity.salience))
+        print(u'{:<16}: {}'.format('wikipedia_url',
+              entity.metadata.get('wikipedia_url', '-')))
+        # metadata=entity.metadata.get('wikipedia_url', '-')
+        metadata=getEntityImageURL(entity.name)['URL']
         entityNames.append(entity.name)
-        result.append({'name':entity.name,'type':entity_type[entity.type],'metadata':metadata})
+        result.update({entity.name:{'type':entity_type[entity.type],'metadata':metadata}})
 
     return result, entityNames
 

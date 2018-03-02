@@ -6,7 +6,7 @@ from django.http import HttpResponse,JsonResponse
 sys.path.append('../')
 from SpeechToText.views import toText
 from TextProcessor.views import analyse, text_translate, entity_analyzer, entityTokenizer
-from TextToSign.views import getGifs
+from TextToSign.views import getGifURLs
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -26,11 +26,15 @@ def textHandler(request,src_lang='en',trgt_lang='en'):
 
     trgt_analysis=analyse(trgt_txt, trgt_lang)
     entity_analysis,entities=entity_analyzer(trgt_txt)
-    # print('print',trgt_analysis, entity_analysis, entities)
+    print('trgt_analysis',trgt_analysis)
+    print('entity_analysis', entity_analysis)
+    print('entities', entities)
     tokens,entityLocs, tokenLabels=entityTokenizer(trgt_txt,entities,trgt_analysis)
-    # print(tokens, entityLocs, tokenLabels)
+    print('tokens', tokens)
+    print('entitylocs', entityLocs)
+    print('tokenLabels', tokenLabels)
 
-    gifs=getGifs(tokens,trgt_analysis,entity_analysis,entityLocs, tokenLabels)
+    gifs=getGifURLs(tokens,tokenLabels, entityLocs, trgt_analysis, entity_analysis)
 
     response={'src_txt':src_txt,'trgt_txt':trgt_txt, 'gif_array': gifs, 'anaysis':trgt_analysis}
     return JsonResponse(response, safe=False)

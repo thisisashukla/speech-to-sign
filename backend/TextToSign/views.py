@@ -3,25 +3,32 @@ from django.shortcuts import render
 from azure.storage.blob import BlockBlobService
 from SpeechToSign.subscriptionKeys import getKey
 # Create your views here.
-def getGifs(tokens,trgt_analysis,entity_analysis,entityLocs, tokenLabels):
-    # print('hello')
+def getGifURLs(tokens,tokenLabels, entityLocs, trgt_analysis, entity_analysis):
 
-    # signList=getBlobList()
+    blobList=getBlobList()
+    base_url=getKey('BASE_BLOB_URL')
     signURLs=[]
 
-    # for word in tokens:
+    for t,l in zip(tokens, tokenLabels):
+        if(l!='ENTITY' and t+'.gif' in blobList):
+            signURLs.append(base_url+t+'.gif')
+        elif(l=='ENTITY'):
+            signURLs.append(entity_analysis[t]['metadata'])
 
+    print('urls',signURLs)
     return signURLs
 
 
 def getBlobList():
-    block_blob_service = BlockBlobService(account_name='gifData', account_key=getKey('MS_Storage'))
+    print('getting blobs')
+    block_blob_service = BlockBlobService(account_name='gifdata', account_key=getKey('MS_Storage'))
     generator = block_blob_service.list_blobs('gifbucket')
     list=[]
-    for blob in generator:
-        list.append(blob.split('.')[0])
 
-    print(list)
+    for blob in generator:
+        list.append(blob.name)
+
+    # print(list)
     return list
 
 

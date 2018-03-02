@@ -2,7 +2,7 @@ import sys
 import requests
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
-
+import string
 sys.path.append('../')
 from SpeechToText.views import toText
 from TextProcessor.views import analyse, text_translate, entity_analyzer, entityTokenizer
@@ -13,9 +13,12 @@ import json
 @csrf_exempt
 def textHandler(request,src_lang='en',trgt_lang='en'):
 
-    raw_txt=request.body.decode("utf-8")
-    raw_tokens=raw_txt.split('=')[1].split('%2B')
-    # print(tokens)
+    raw_txt=request.body.decode("utf-8").split('=')[1]
+    for c in string.punctuation:
+        raw_txt=raw_txt.replace(c,"")
+
+    raw_tokens=raw_txt.split('20')
+    print('raw_tokens',raw_tokens)
     trgt_txt=None
     src_txt=' '.join(raw_tokens)
     if(src_lang!=trgt_lang):
@@ -29,12 +32,11 @@ def textHandler(request,src_lang='en',trgt_lang='en'):
     print('trgt_analysis',trgt_analysis)
     print('entity_analysis', entity_analysis)
     print('entities', entities)
-    tokens,entityLocs, tokenLabels=entityTokenizer(trgt_txt,entities,trgt_analysis)
+    tokens,tokenLabels=entityTokenizer(trgt_txt,entities,trgt_analysis)
     print('tokens', tokens)
-    print('entitylocs', entityLocs)
     print('tokenLabels', tokenLabels)
 
-    gifs=getGifURLs(tokens,tokenLabels, entityLocs, trgt_analysis, entity_analysis)
+    gifs=getGifURLs(tokens,tokenLabels, trgt_analysis, entity_analysis)
 
     response={'src_txt':src_txt,'trgt_txt':trgt_txt, 'gif_array': gifs, 'anaysis':trgt_analysis}
     return JsonResponse(response, safe=False)

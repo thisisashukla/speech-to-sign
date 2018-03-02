@@ -8,11 +8,12 @@ from google.cloud import translate
 from google.cloud.language import enums as enums
 from google.cloud.language import types as types
 from google.protobuf.json_format import MessageToJson,MessageToDict
-from TextToSign.views import getEntityImageURL
-from SpeechToSign.subscriptionKeys import setKey
+from TextToSign.views import getEntityImageURL, getBlobList
+from SpeechToSign.subscriptionKeys import setKey, getKey
 import spacy
 from spacy.matcher import PhraseMatcher
 # Create your views here.
+base_Blob_url=getKey('BASE_BLOB_URL')
 
 def text_translate(text, trgt_lang):
     setKey()
@@ -94,6 +95,7 @@ def entity_analyzer(text):
     entity_type = ('UNKNOWN', 'PERSON', 'LOCATION', 'ORGANIZATION',
                    'EVENT', 'WORK_OF_ART', 'CONSUMER_GOOD', 'OTHER', 'FOOD')
 
+    blobList=getBlobList()
     result={}
     entityNames=[]
     for entity in entities:
@@ -105,7 +107,10 @@ def entity_analyzer(text):
         print(u'{:<16}: {}'.format('wikipedia_url',
               entity.metadata.get('wikipedia_url', '-')))
         # metadata=entity.metadata.get('wikipedia_url', '-')
-        metadata=getEntityImageURL(entity.name)['URL']
+        if entity.name+'.gif' not in blobList:
+            metadata=getEntityImageURL(entity.name)['URL']
+        else:
+            metadata=base_Blob_url+'/'+entity.name+'.gif'
         entityNames.append(entity.name)
         result.update({entity.name:{'type':entity_type[entity.type],'metadata':metadata}})
 
@@ -121,26 +126,42 @@ def entityTokenizer(txt,entities,analysis):
     simpleTokens=txt.split(' ')
     doc = nlp(txt)
     matches = matcher(doc)
-
-    entityList=[]
-    entityLoc=[]
-    complexTokens=[]
+    print(matches)
+    # entityList=[]
+    # entityLoc=[]
+    # complexTokens=[]
     labels=[]
-    prev=0
-    for match in matches:
-        temp=[]
-        for i in range(match[1],match[2]):
-            temp.append(simpleTokens[i])
-        entityList.append(' '.join(temp))
+    for t in simpleTokens:
+        labels.append(analysis[t])
+    # prev=0
+    for match in reversed(matches):
+        temp=' '.join(simpleTokens[match[1]:match[2]])
+        del simpleTokens[match[1]:match[2]]
+        del labels[match[1]:match[2]]
+        simpleTokens.insert(match[1],temp)
+        labels.insert(match[1],'ENTITY')
+        # entityLoc.append(match[1])
 
-        if(prev!=match[1]):
-            for j in range(prev,match[1]):
-                complexTokens.append(simpleTokens[j])
-                labels.append(analysis[simpleTokens[j]])
-            complexTokens.append(entityList[-1])
-            labels.append('ENTITY')
-            entityLoc.append(len(complexTokens)-1)
+        # temp=[]
+        # for i in range(match[1],match[2]):
+        #     temp.append(simpleTokens[i])
+        # if(len(temp)>1):
+        #     entityList.append(' '.join(temp))
+        # else:
+        #     entityList.append(temp[0])
+        #
+        # if(prev!=match[1]):
+        #     for j in range(prev,match[1]):
+        #         complexTokens.append(simpleTokens[j])
+        #         labels.append(analysis[simpleTokens[j]])
+        #     complexTokens.append(entityList[-1])
+        #     labels.append('ENTITY')
+        #     entityLoc.append(len(complexTokens)-1)
+        #
+        # print(entityList, complexTokens)
+        # prev=match[2]
 
-        prev=match[2]
+    print(simpleTokens, labels)
 
-    return complexTokens,entityLoc, labels
+
+    return simpleTokens,labels

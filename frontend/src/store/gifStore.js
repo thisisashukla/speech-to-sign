@@ -41,7 +41,7 @@ class GifStore extends EventEmitter {
     console.log('urlreceived');
     this.gifs=response.gif_array;
     console.log(this.gifs);
-    this.emit("gifs received");
+    this.emit("gifs_received");
   }
 
   handleActions(action) {

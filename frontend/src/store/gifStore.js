@@ -9,10 +9,15 @@ class GifStore extends EventEmitter {
     super(props);
     // let img=require('../../assests/images/sign.gif');
     this.gif = images.defaultGif;
+    this.gifs=null;
   }
 
   getDefault() {
     return images.defaultGif;
+  }
+
+  getGifArray(){
+    return this.gifs;
   }
 
   setDefault() {
@@ -32,6 +37,13 @@ class GifStore extends EventEmitter {
     return this.gif;
   }
 
+  urlReceived(response) {
+    console.log('urlreceived');
+    this.gifs=response.gif_array;
+    console.log(this.gifs);
+    this.emit("gifs received");
+  }
+
   handleActions(action) {
     switch (action.type) {
       case 'DEFAULT_GIF':
@@ -44,7 +56,9 @@ class GifStore extends EventEmitter {
         {
           var {src_lang, trgt_lang} = LanguageStore.getLanguage();
           console.log(src_lang,trgt_lang);
-          apiCaller.backendRequest('api/' + src_lang + '/' + trgt_lang, action.payload, (response) => {}, (error) => {})
+          apiCaller.backendRequest('api/' + src_lang + '/' + trgt_lang, action.payload, this.urlReceived, (error) => {
+            console.log('error calling backend')
+          })
           break;
         }
       }

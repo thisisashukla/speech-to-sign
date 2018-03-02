@@ -3,6 +3,7 @@ import ImageStore from '../store/gifStore';
 import * as ImgAction from '../actions/gifActions';
 import {Image} from '../styles';
 import images from '../images';
+import gifShot from 'gifshot';
 
 class Gif extends Component {
   constructor(props) {
@@ -18,6 +19,10 @@ class Gif extends Component {
     ImageStore.on("change", () => {
       this.setState({gif: ImageStore.getGif()})
     })
+
+    ImageStore.on("gifs_received", () => {
+      this.setState({gif: this.trgt_gif})
+    })
   }
 
   updateGif() {
@@ -30,6 +35,14 @@ class Gif extends Component {
     console.log("default action")
     ImgAction.defaultGif()
   }
+
+  trgt_gif = gifShot.createGIF({
+    'images': ImageStore.getGifArray()
+  }, (obj) => {
+    if(!obj.image) {
+      return obj.image
+    }
+  })
 
   render() {
     const {gif} = this.state;

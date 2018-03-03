@@ -15,6 +15,7 @@ class GifStore extends EventEmitter {
   constructor(props) {
     super(props);
     // let img=require('../../assests/images/sign.gif');
+    this.urlReceived = this.urlReceived.bind(this);
     this.gif = images.defaultGif;
     this.gifs=null;
   }
@@ -62,11 +63,11 @@ class GifStore extends EventEmitter {
       case 'TO_GIF':
         {
           var {src_lang, trgt_lang} = LanguageStore.getLanguage();
-          console.log(src_lang,trgt_lang);
-          axios.post(BASE_BACKEND_URL+'api/' + src_lang + '/' + trgt_lang, qs.stringify({params: params}))
+          console.log('sending ajax to backend',BASE_BACKEND_URL+'api/' + src_lang + '/' + trgt_lang);
+          axios.post(BASE_BACKEND_URL+'api/' + src_lang + '/' + trgt_lang, qs.stringify({params: action.payload}))
           .then(function (response) {
             console.log(response);
-            this.urlReceived(response;
+            this.urlReceived(response);
           })
           .catch(function (error) {
             console.log('errordddd',error);

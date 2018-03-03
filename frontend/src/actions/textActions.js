@@ -5,7 +5,7 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-var BASE_BACKEND_URL = 'http://localhost:8000/';
+var BASE_BACKEND_URL = 'http://127.0.0.1:8000/';
 
 export function toGif(text,languages) {
   dispatcher.dispatch({type: "GETTING_GIF", payload: text});

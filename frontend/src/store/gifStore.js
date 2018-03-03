@@ -3,13 +3,7 @@ import dispatcher from '../dispatcher';
 import images from '../images';
 import * as apiCaller from '../apiCaller';
 import LanguageStore from '../store/languageStore';
-import axios from 'axios';
-import qs from 'querystring';
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-var BASE_BACKEND_URL = 'http://localhost:8000/';
 
 class GifStore extends EventEmitter {
   constructor(props) {
@@ -22,6 +16,11 @@ class GifStore extends EventEmitter {
 
   getDefault() {
     return images.defaultGif;
+  }
+
+  setLoader() {
+    this.gif = images.loaderGif;
+    this.emit("change");
   }
 
   getGifArray(){
@@ -45,9 +44,9 @@ class GifStore extends EventEmitter {
     return this.gif;
   }
 
-  urlReceived(response) {
+  urlReceived(data) {
     console.log('urlreceived');
-    this.gifs=response.data.gif_array;
+    this.gifs=data.gif_array;
     console.log(this.gifs);
     this.emit("gifs_received");
   }
@@ -60,18 +59,15 @@ class GifStore extends EventEmitter {
           this.setDefault();
           break;
         };
-      case 'TO_GIF':
+      case 'GETTING_GIF':
         {
-          var {src_lang, trgt_lang} = LanguageStore.getLanguage();
-          console.log('sending ajax to backend',BASE_BACKEND_URL+'api/' + src_lang + '/' + trgt_lang);
-          axios.post(BASE_BACKEND_URL+'api/' + src_lang + '/' + trgt_lang, qs.stringify({params: action.payload}))
-          .then(function (response) {
-            console.log(response);
-            this.urlReceived(response);
-          })
-          .catch(function (error) {
-            console.log('errordddd',error);
-          });
+          console.log("setting loader");
+          this.setLoader();
+          break;
+        }
+      case 'GOT_GIF':
+        {
+          this.urlReceived(action.payload);
           break;
         }
       }

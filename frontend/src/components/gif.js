@@ -39,7 +39,7 @@ class Gif extends Component {
   trgt_gif = gifShot.createGIF({
     'images': ImageStore.getGifArray()
   }, (obj) => {
-    if(!obj.image) {
+    if(!obj.error) {
       return obj.image
     }
   })

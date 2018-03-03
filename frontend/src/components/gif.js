@@ -21,7 +21,16 @@ class Gif extends Component {
     })
 
     ImageStore.on("gifs_received", () => {
-      this.setState({gif: this.trgt_gif})
+      // this.setState({gif: this.trgt_gif})
+      gifShot.createGIF({
+        'images': ImageStore.getGifArray()
+      }, (obj) => {
+        if(!obj.error) {
+          var img = obj.image;
+          console.log(img);
+          this.setState({gif: img});
+        }
+      });
     })
   }
 
@@ -35,14 +44,6 @@ class Gif extends Component {
     console.log("default action")
     ImgAction.defaultGif()
   }
-
-  trgt_gif = gifShot.createGIF({
-    'images': ImageStore.getGifArray()
-  }, (obj) => {
-    if(!obj.image) {
-      return obj.image
-    }
-  })
 
   render() {
     const {gif} = this.state;

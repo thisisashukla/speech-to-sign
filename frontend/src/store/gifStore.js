@@ -4,16 +4,23 @@ import images from '../images';
 import * as apiCaller from '../apiCaller';
 import LanguageStore from '../store/languageStore';
 
+
 class GifStore extends EventEmitter {
   constructor(props) {
     super(props);
     // let img=require('../../assests/images/sign.gif');
+    this.urlReceived = this.urlReceived.bind(this);
     this.gif = images.defaultGif;
     this.gifs=null;
   }
 
   getDefault() {
     return images.defaultGif;
+  }
+
+  setLoader() {
+    this.gif = images.loaderGif;
+    this.emit("change");
   }
 
   getGifArray(){
@@ -37,11 +44,11 @@ class GifStore extends EventEmitter {
     return this.gif;
   }
 
-  urlReceived(response) {
+  urlReceived(data) {
     console.log('urlreceived');
-    this.gifs=response.gif_array;
+    this.gifs=data.gif_array;
     console.log(this.gifs);
-    this.emit("gifs received");
+    this.emit("gifs_received");
   }
 
   handleActions(action) {
@@ -52,13 +59,15 @@ class GifStore extends EventEmitter {
           this.setDefault();
           break;
         };
-      case 'TO_GIF':
+      case 'GETTING_GIF':
         {
-          var {src_lang, trgt_lang} = LanguageStore.getLanguage();
-          console.log(src_lang,trgt_lang);
-          apiCaller.backendRequest('api/' + src_lang + '/' + trgt_lang, action.payload, this.urlReceived, (error) => {
-            console.log('error calling backend')
-          })
+          console.log("setting loader");
+          this.setLoader();
+          break;
+        }
+      case 'GOT_GIF':
+        {
+          this.urlReceived(action.payload);
           break;
         }
       }

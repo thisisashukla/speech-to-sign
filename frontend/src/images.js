@@ -3,7 +3,8 @@ import otherGif from '../assests/images/sign.gif'
 
 const images = {
   defaultGif: entryGif,
-  newGif: otherGif
+  newGif: otherGif,
+  loaderGif: otherGif
 };
 
 export default images;

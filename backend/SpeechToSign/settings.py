@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Application.apps.ApplicationConfig',
+    'corsheaders'
 ]
 
+ALLOWED_HOSTS = ['*']
 MIDDLEWARE_CLASSES = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +56,12 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'SpeechToSign.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8080',
+)
 
 TEMPLATES = [
     {

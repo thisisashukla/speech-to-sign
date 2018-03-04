@@ -1,9 +1,7 @@
 import dispatcher from "../dispatcher";
 
 export function startRecording(path) {
-  dispatcher.dispatch({
-    type: "START_RECORDING",
-  })
+  dispatcher.dispatch({type: "START_RECORDING"})
 }
 
 export function stopRecording() {

@@ -15,23 +15,21 @@ class Transcription extends Component {
 
   componentWillMount() {
     TranscriberStore.on("change", () => {
-      var [ status, text, append ] = TranscriberStore.getResult();
-      console.log('transcript',text, append)
-      if(append)
-        text=this.state.transcript+text;
-      this.setState({
-        status: status,
-        transcript: text,
-      })
+      var [status,
+        text,
+        append] = TranscriberStore.getResult();
+      console.log('transcript', text, append)
+      if (append)
+        text = this.state.transcript + text;
+      this.setState({status: status, transcript: text})
     })
 
     TranscriberStore.on("success", () => {
-      var [ status, result, append ] = TranscriberStore.getResult();
-      var { RecognitionStatus, DisplayText, Offset, Duration } = result;
-      this.setState({
-        status: status,
-        transcript: DisplayText,
-      })
+      var [status,
+        result,
+        append] = TranscriberStore.getResult();
+      var {RecognitionStatus, DisplayText, Offset, Duration} = result;
+      this.setState({status: status, transcript: DisplayText})
       TxtActions.toGif(DisplayText, LanguageStore.getLanguage());
     })
   }

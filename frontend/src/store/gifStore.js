@@ -3,13 +3,12 @@ import {EventEmitter} from 'events';
 import dispatcher from '../dispatcher';
 import LanguageStore from '../store/languageStore';
 
-
 class GifStore extends EventEmitter {
   constructor(props) {
     super(props);
     this.urlReceived = this.urlReceived.bind(this);
     this.gif = images.defaultGif;
-    this.gifs=null;
+    this.gifs = null;
   }
 
   getDefault() {
@@ -21,7 +20,7 @@ class GifStore extends EventEmitter {
     this.emit("change");
   }
 
-  getGifArray(){
+  getGifArray() {
     return this.gifs;
   }
 
@@ -44,7 +43,7 @@ class GifStore extends EventEmitter {
 
   urlReceived(data) {
     // console.log('urlreceived');
-    this.gifs=data.gif_array;
+    this.gifs = data.gif_array;
     // console.log(this.gifs);
     this.emit("gifs_received");
   }
@@ -68,9 +67,9 @@ class GifStore extends EventEmitter {
           this.urlReceived(action.payload);
           break;
         }
-      }
     }
   }
+}
 
 const gifStore = new GifStore;
 

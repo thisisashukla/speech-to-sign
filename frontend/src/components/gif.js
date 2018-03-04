@@ -23,9 +23,9 @@ class Gif extends Component {
     ImageStore.on("gifs_received", () => {
       gifShot.createGIF({
         images: ImageStore.getGifArray(),
-        interval: 1,
+        interval: 1
       }, (obj) => {
-        if(!obj.error) {
+        if (!obj.error) {
           var img = obj.image;
           this.setState({gif: img});
         }

@@ -9,6 +9,12 @@ from TextProcessor.views import analyse, text_translate, entity_analyzer, entity
 from TextToSign.views import getGifURLs
 from django.views.decorators.csrf import csrf_exempt
 import json
+from Application.models import Blob
+from Application.forms import Blob_Form
+from SpeechToSign.subscriptionKeys import getKey
+from TextToSign.views import getBlobList
+
+base_Blob_url=getKey('BASE_BLOB_URL')
 
 @csrf_exempt
 def textHandler(request,src_lang='en',trgt_lang='en'):
@@ -17,7 +23,7 @@ def textHandler(request,src_lang='en',trgt_lang='en'):
     for c in string.punctuation:
         raw_txt=raw_txt.replace(c,"")
 
-    raw_tokens=raw_txt.split('20')
+    raw_tokens=raw_txt.split('2B')
     print('raw_tokens',raw_tokens)
     trgt_txt=None
     src_txt=' '.join(raw_tokens)
@@ -41,15 +47,40 @@ def textHandler(request,src_lang='en',trgt_lang='en'):
     response={'src_txt':src_txt,'trgt_txt':trgt_txt, 'gif_array': gifs, 'anaysis':trgt_analysis}
     return JsonResponse(response, safe=False)
 
-def textToSign(analysis, trgt_lang='en'):
+def blobAdder(request):
 
-    # API calling method
+    if request.method=='GET':
 
-    # analysing converted trgt_txt
-    trgt_analysis=analyse(request.trgt_txt, trgt_lang)
+        return HttpResponse("nothing to get here")
 
-    # converting to sign
-    gifResponse=makegif(request.trgt_txt,trgt_analysis,trgt_lang)
+    if request.method=='POST':
+        print('in post')
+        blob_form=Blob_Form(request.POST)
+        print(blob_form)
+        print(blob_form.errors)
+        if blob_form.is_valid():
+            print('form data valid')
+            blob_instance = blob_form.save(commit=False)
 
-    response={'trgt_txt': request.trgt_txt, 'gif': gifResponse}
-    return JsonResponse(response, safe=False)
+            blob_instance.blob_name=blob_form.cleaned_data['blob_name']
+            print(blob_instance.blob_name)
+            blob_instance.blob_url=blob_form.cleaned_data['blob_url']
+            print(blob_instance.blob_url)
+
+            blob_instance.save()
+            print('saved data')
+            return HttpResponse('Success.html')
+        else:
+            print('data invalid')
+            return HttpResponse('Failure.html')
+
+@csrf_exempt
+def bulk_update(request):
+    insert_list = []
+    for blob in getBlobList():
+        insert_list.append(Blob(blob_name=blob,blob_url=base_Blob_url+blob))
+    try:
+        Blob.objects.bulk_create(insert_list)
+        return HttpResponse('Success')
+    except:
+        return HttpResponse('error')

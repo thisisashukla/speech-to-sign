@@ -4,6 +4,7 @@ from azure.storage.blob import BlockBlobService
 from SpeechToSign.subscriptionKeys import getKey
 import urllib
 from struct import pack
+from Application.models import Blob
 
 base_bingImageSearch_url='https://api.cognitive.microsoft.com/bing/v7.0/images/search'
 base_Blob_url=getKey('BASE_BLOB_URL')
@@ -11,14 +12,16 @@ base_Blob_url=getKey('BASE_BLOB_URL')
 # Create your views here.
 def getGifURLs(tokens,tokenLabels, trgt_analysis, entity_analysis):
 
-    blobList=getBlobList()
+    # blobList=getBlobList()
 
     signURLs=[]
 
     for t,l in zip(tokens, tokenLabels):
-        if(t+'.gif' in blobList):
-            signURLs.append(base_Blob_url+t+'.gif')
-        elif(l=='ENTITY' and t+'.gif' not in blobList):
+        full_name=t+'.gif'
+        exists=Blob.objects.filter(blob_name=full_name.lower()).exists()
+        if(exists):
+            signURLs.append(base_Blob_url+full_name.lower())
+        elif(l=='ENTITY' and not exists):
             signURLs.append(entity_analysis[t]['metadata'])
 
     print('urls',signURLs)

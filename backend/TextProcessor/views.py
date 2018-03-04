@@ -12,6 +12,7 @@ from TextToSign.views import getEntityImageURL, getBlobList
 from SpeechToSign.subscriptionKeys import setKey, getKey
 import spacy
 from spacy.matcher import PhraseMatcher
+from Application.models import Blob
 # Create your views here.
 base_Blob_url=getKey('BASE_BLOB_URL')
 
@@ -95,7 +96,7 @@ def entity_analyzer(text):
     entity_type = ('UNKNOWN', 'PERSON', 'LOCATION', 'ORGANIZATION',
                    'EVENT', 'WORK_OF_ART', 'CONSUMER_GOOD', 'OTHER', 'FOOD')
 
-    blobList=getBlobList()
+    # blobList=getBlobList()
     result={}
     entityNames=[]
     for entity in entities:
@@ -106,11 +107,17 @@ def entity_analyzer(text):
         print(u'{:<16}: {}'.format('salience', entity.salience))
         print(u'{:<16}: {}'.format('wikipedia_url',
               entity.metadata.get('wikipedia_url', '-')))
+        full_name=entity.name+'.gif'
         # metadata=entity.metadata.get('wikipedia_url', '-')
-        if entity.name+'.gif' not in blobList:
+        # if entity.name+'.gif' not in blobList:
+        #     metadata=getEntityImageURL(entity.name)['URL']
+        # else:
+        #     metadata=base_Blob_url+'/'+entity.name+'.gif'
+        if not Blob.objects.filter(blob_name=full_name.lower()).exists():
             metadata=getEntityImageURL(entity.name)['URL']
         else:
-            metadata=base_Blob_url+'/'+entity.name+'.gif'
+            metadata=base_Blob_url+'/'+full_name.lower()
+
         entityNames.append(entity.name)
         result.update({entity.name:{'type':entity_type[entity.type],'metadata':metadata}})
 

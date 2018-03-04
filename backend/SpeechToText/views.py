@@ -1,15 +1,16 @@
 import io
 import re
 import sys
-# importing google speech API
 from google.cloud import speech
 from google.cloud import translate
+from django.shortcuts import render
 from google.cloud.speech import enums
 from google.cloud.speech import types
-from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse, JsonResponse
 
-# Create your views here.
+# speech to text code using google api (failure)
+
+
 def toText(speech_chunk, src_lang='en'):
     # printing information for sanility check
     print("source language {}".format(src_lang))
@@ -78,8 +79,8 @@ def toText(speech_chunk, src_lang='en'):
     ogg = AudioSegment.from_ogg(speech_chunk)
     print(type(ogg))
 
-    codecs={
-        'FLAC': enums.RecognitionConfig.AudioEncoding.FLAC ,
+    codecs = {
+        'FLAC': enums.RecognitionConfig.AudioEncoding.FLAC,
         'LINEAR16': enums.RecognitionConfig.AudioEncoding.LINEAR16,
         'MULAW': enums.RecognitionConfig.AudioEncoding.MULAW,
         'AMR': enums.RecognitionConfig.AudioEncoding.AMR,
@@ -88,7 +89,7 @@ def toText(speech_chunk, src_lang='en'):
 
     client = speech.SpeechClient()
     audio = types.RecognitionAudio(content=speech_chunk)
-    text=[]
+    text = []
     config = types.RecognitionConfig(
         encoding=enums.RecognitionConfig.AudioEncoding.OGG_OPUS,
         sample_rate_hertz=48000,

@@ -10,13 +10,13 @@ base_bingImageSearch_url='https://api.cognitive.microsoft.com/bing/v7.0/images/s
 base_Blob_url=getKey('BASE_BLOB_URL')
 
 # Create your views here.
-def getGifURLs(tokens,tokenLabels, trgt_analysis, entity_analysis):
+def getGifURLs(tuples, trgt_analysis, entity_analysis):
 
     # blobList=getBlobList()
 
     signURLs=[]
 
-    for t,l in zip(tokens, tokenLabels):
+    for t,l in tuples:
         full_name=t+'.gif'
         exists=Blob.objects.filter(blob_name=full_name.lower()).exists()
         if(exists):

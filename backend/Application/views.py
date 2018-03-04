@@ -23,7 +23,11 @@ def textHandler(request,src_lang='en',trgt_lang='en'):
     for c in string.punctuation:
         raw_txt=raw_txt.replace(c,"")
 
-    raw_tokens=raw_txt.split('2B')
+    if '2B' in raw_txt:
+        raw_tokens=raw_txt.split('2B')
+    elif '20' in raw_txt:
+        raw_tokens=raw_txt.split('20')
+
     print('raw_tokens',raw_tokens)
     trgt_txt=None
     src_txt=' '.join(raw_tokens)
@@ -38,11 +42,11 @@ def textHandler(request,src_lang='en',trgt_lang='en'):
     print('trgt_analysis',trgt_analysis)
     print('entity_analysis', entity_analysis)
     print('entities', entities)
-    tokens,tokenLabels=entityTokenizer(trgt_txt,entities,trgt_analysis)
-    print('tokens', tokens)
-    print('tokenLabels', tokenLabels)
+    tuples=entityTokenizer(trgt_txt,entities,trgt_analysis)
+    # print('tuples', tuples)
+    # print('tokenLabels', tokenLabels)
 
-    gifs=getGifURLs(tokens,tokenLabels, trgt_analysis, entity_analysis)
+    gifs=getGifURLs(tuples, trgt_analysis, entity_analysis)
 
     response={'src_txt':src_txt,'trgt_txt':trgt_txt, 'gif_array': gifs, 'anaysis':trgt_analysis}
     return JsonResponse(response, safe=False)

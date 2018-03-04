@@ -52,11 +52,12 @@ def analyse(text,lang):
     analysisDICT = MessageToDict(analysis)
     # print(analysisDICT)
     tokens=analysisDICT['tokens']
-    dict={}
+    list=[]
     for token in tokens:
-        dict.update({token['text']['content']:token['partOfSpeech']['tag']})
+        print(token['text']['content'],token['partOfSpeech']['tag'])
+        list.append((token['text']['content'],token['partOfSpeech']['tag']))
     # print(dict)
-    return dict
+    return list
 
 def detect_language(text):
     setKey()
@@ -102,11 +103,11 @@ def entity_analyzer(text):
     for entity in entities:
         print('=' * 20)
         print(u'{:<16}: {}'.format('name', entity.name))
-        print(u'{:<16}: {}'.format('metadata', entity.metadata))
-        print(u'{:<16}: {}'.format('type', entity_type[entity.type]))
-        print(u'{:<16}: {}'.format('salience', entity.salience))
-        print(u'{:<16}: {}'.format('wikipedia_url',
-              entity.metadata.get('wikipedia_url', '-')))
+        # print(u'{:<16}: {}'.format('metadata', entity.metadata))
+        # print(u'{:<16}: {}'.format('type', entity_type[entity.type]))
+        # print(u'{:<16}: {}'.format('salience', entity.salience))
+        # print(u'{:<16}: {}'.format('wikipedia_url',
+        #       entity.metadata.get('wikipedia_url', '-')))
         full_name=entity.name+'.gif'
         # metadata=entity.metadata.get('wikipedia_url', '-')
         # if entity.name+'.gif' not in blobList:
@@ -125,7 +126,7 @@ def entity_analyzer(text):
 
 
 def entityTokenizer(txt,entities,analysis):
-    nlp = spacy.blank('en')
+    nlp = spacy.load('en')
     matcher = PhraseMatcher(nlp.vocab)
     terminology_list = entities
     patterns = [nlp(text) for text in terminology_list]
@@ -137,16 +138,18 @@ def entityTokenizer(txt,entities,analysis):
     # entityList=[]
     # entityLoc=[]
     # complexTokens=[]
-    labels=[]
-    for t in simpleTokens:
-        labels.append(analysis[t])
+    # labels=[]
+    # for t in simpleTokens:
+    #     labels.append(analysis[t])
     # prev=0
     for match in reversed(matches):
         temp=' '.join(simpleTokens[match[1]:match[2]])
         del simpleTokens[match[1]:match[2]]
-        del labels[match[1]:match[2]]
+        del analysis[match[1]:match[2]]
+        # del labels[match[1]:match[2]]
         simpleTokens.insert(match[1],temp)
-        labels.insert(match[1],'ENTITY')
+        analysis.insert(match[1],(temp,'ENTITY'))
+        # labels.insert(match[1],'ENTITY')
         # entityLoc.append(match[1])
 
         # temp=[]
@@ -168,7 +171,7 @@ def entityTokenizer(txt,entities,analysis):
         # print(entityList, complexTokens)
         # prev=match[2]
 
-    print(simpleTokens, labels)
+    print(analysis)
 
 
-    return simpleTokens,labels
+    return analysis

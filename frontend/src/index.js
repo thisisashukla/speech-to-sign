@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-
 import {Title} from './styles';
+import ReactDOM from 'react-dom';
 import Gif from './components/gif';
-import Transcriber from './components/transcriber';
-import Transcription from './components/text';
+import React, {Component} from 'react';
 import Language from './components/language';
+import Transcription from './components/text';
+import Transcriber from './components/transcriber';
 
 class Heading extends Component {
   render() {

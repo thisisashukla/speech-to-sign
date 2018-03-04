@@ -1,5 +1,5 @@
+import otherGif from '../assests/images/sign.gif';
 import entryGif from '../assests/images/logo.png';
-import otherGif from '../assests/images/sign.gif'
 
 const images = {
   defaultGif: entryGif,

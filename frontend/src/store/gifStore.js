@@ -1,14 +1,12 @@
+import images from '../images';
 import {EventEmitter} from 'events';
 import dispatcher from '../dispatcher';
-import images from '../images';
-import * as apiCaller from '../apiCaller';
 import LanguageStore from '../store/languageStore';
 
 
 class GifStore extends EventEmitter {
   constructor(props) {
     super(props);
-    // let img=require('../../assests/images/sign.gif');
     this.urlReceived = this.urlReceived.bind(this);
     this.gif = images.defaultGif;
     this.gifs=null;
@@ -28,26 +26,26 @@ class GifStore extends EventEmitter {
   }
 
   setDefault() {
-    console.log("default called");
+    // console.log("default called");
     this.gif = images.defaultGif;
     this.emit("change");
   }
 
   updateGif(newGif) {
-    console.log("udpate called", newGif)
+    // console.log("udpate called", newGif)
     this.gif = newGif;
     this.emit("change");
   }
 
   getGif() {
-    console.log("getting gif")
+    // console.log("getting gif")
     return this.gif;
   }
 
   urlReceived(data) {
-    console.log('urlreceived');
+    // console.log('urlreceived');
     this.gifs=data.gif_array;
-    console.log(this.gifs);
+    // console.log(this.gifs);
     this.emit("gifs_received");
   }
 
@@ -55,13 +53,13 @@ class GifStore extends EventEmitter {
     switch (action.type) {
       case 'DEFAULT_GIF':
         {
-          console.log("Default case")
+          // console.log("Default case")
           this.setDefault();
           break;
         };
       case 'GETTING_GIF':
         {
-          console.log("setting loader");
+          // console.log("setting loader");
           this.setLoader();
           break;
         }
@@ -77,6 +75,4 @@ class GifStore extends EventEmitter {
 const gifStore = new GifStore;
 
 dispatcher.register(gifStore.handleActions.bind(gifStore))
-// window.store=gifStore;
-// window.dispatcher=dispatcher;
 export default gifStore;

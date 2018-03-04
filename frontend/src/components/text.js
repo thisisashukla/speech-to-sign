@@ -1,10 +1,8 @@
+import {Text} from '../styles';
 import React, {Component} from 'react';
-import TranscriberStore from '../store/transcriberStore';
 import LanguageStore from '../store/languageStore';
 import * as TxtActions from '../actions/textActions';
-// import ImageStore from '../store/gifStore';
-// import * as ImgAction from '../actions/gifActions';
-import {Text} from '../styles';
+import TranscriberStore from '../store/transcriberStore';
 
 class Transcription extends Component {
   constructor(props) {
@@ -34,7 +32,6 @@ class Transcription extends Component {
         status: status,
         transcript: DisplayText,
       })
-      console.log('calling togif');
       TxtActions.toGif(DisplayText, LanguageStore.getLanguage());
     })
   }

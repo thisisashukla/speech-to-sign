@@ -1,9 +1,9 @@
+import gifShot from 'gifshot';
+import images from '../images';
+import {Image} from '../styles';
 import React, {Component} from 'react';
 import ImageStore from '../store/gifStore';
 import * as ImgAction from '../actions/gifActions';
-import {Image} from '../styles';
-import images from '../images';
-import gifShot from 'gifshot';
 
 class Gif extends Component {
   constructor(props) {
@@ -21,7 +21,6 @@ class Gif extends Component {
     })
 
     ImageStore.on("gifs_received", () => {
-      // this.setState({gif: this.trgt_gif})
       gifShot.createGIF({
         images: ImageStore.getGifArray(),
         interval: 1,
@@ -48,7 +47,6 @@ class Gif extends Component {
 
   render() {
     const {gif} = this.state;
-    // console.log(gif)
     return (
       <div>
         <Image src={gif}/>

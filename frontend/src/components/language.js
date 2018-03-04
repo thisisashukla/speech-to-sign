@@ -1,7 +1,7 @@
+import Dropdown from 'react-dropdown'
 import React, {Component} from 'react';
 import LanguageStore from '../store/languageStore';
 import * as LngAction from '../actions/languageActions';
-import Dropdown from 'react-dropdown'
 
 class Language extends Component {
   constructor(props) {

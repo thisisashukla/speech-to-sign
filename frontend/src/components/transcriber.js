@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
-import * as TrnscbrActions from '../actions/transcriberActions';
 import {PushButton} from '../styles';
-import * as SDK from 'microsoft-speech-browser-sdk';
-import TranscriberStore from '../store/transcriberStore';
-import {string, number, bool, func} from 'prop-types';
+import React, {Component} from 'react';
 import { MS_SpeechKey } from '../subscriptionKeys';
+import * as SDK from 'microsoft-speech-browser-sdk';
+import {string, number, bool, func} from 'prop-types';
+import TranscriberStore from '../store/transcriberStore';
+import * as TrnscbrActions from '../actions/transcriberActions';
+
 class Transcriber extends Component {
   constructor(props) {
     super(props);
     this.toggleRecording = this.toggleRecording.bind(this);
-    // this.toggleRecording = this.toggleRecording.bind(this);
-    console.log('SETTING RECOGNIZER NULL');
+    // console.log('SETTING RECOGNIZER NULL');
     this.state = {
       subsKey: null,
       language: null,
@@ -23,8 +23,6 @@ class Transcriber extends Component {
   }
 
   recognizerSetup = (recognitionMode, language, format, subscriptionKey) => {
-
-    // console.log('setting up recognizer with',recognitionMode, language, format, subscriptionKey)
 
     switch (recognitionMode) {
       case "Interactive":
@@ -41,16 +39,11 @@ class Transcriber extends Component {
     }
 
     var recognizerConfig = new SDK.RecognizerConfig(new SDK.SpeechConfig(new SDK.Context(new SDK.OS(navigator.userAgent, "Browser", null), new SDK.Device("SpeechSample", "SpeechSample", "1.0.00000"))), recognitionMode, language, // Supported languages are specific to each recognition mode. Refer to docs.
-        format); // SDK.SpeechResultFormat.Simple (Options - Simple/Detailed)
-
-    // console.log('rec confog',recognizerConfig);
+        format);
 
     var useTokenAuth = false;
 
     var authentication = new SDK.CognitiveSubscriptionKeyAuthentication(subscriptionKey);
-
-    // console.log('authenticate',authentication);
-    // console.log(SDK.CreateRecognizer(recognizerConfig, authentication));
 
     return SDK.CreateRecognizer(recognizerConfig, authentication);
   }
@@ -60,7 +53,6 @@ class Transcriber extends Component {
       TrnscbrActions.stop([SDK, this.state.recognizer]);
     }
     var outputFormat = null;
-    // console.log('formats',SDK.SpeechResultFormat.Simple,SDK.SpeechResultFormat.Detailed);
     switch (formatOptn) {
       case "Simple":
         outputFormat = SDK.SpeechResultFormat.Simple;
@@ -70,9 +62,7 @@ class Transcriber extends Component {
         break;
     }
 
-    // console.log('going to intialize reconizer with', subsKey, language, outputFormat, inptSrc, regMode);
     return this.recognizerSetup(regMode, language, outputFormat, subsKey);
-    // console.log('recognizer set',this.recognizer);
   }
 
   componentWillMount() {
@@ -90,19 +80,16 @@ class Transcriber extends Component {
   }
 
   toggleRecording = () => {
-    // console.log('toggle',this.recognizer);
     if (this.state.status) {
       this.state.status=false;
-      console.log(SDK,this.state.recogizer);
+      // console.log(SDK,this.state.recogizer);
       TrnscbrActions.stop({'SDK': SDK, 'recognizer': this.state.recognizer});
     }
 
     else {
       this.state.status=true;
-      // console.log('making starting recog call');
-      // console.log('recognizer value',this.recognizer);
       TrnscbrActions.start({'SDK': SDK, 'recognizer': this.state.recognizer});
-      console.log('after start',this.state.recognizer);
+      // console.log('after start',this.state.recognizer);
     }
 
   }

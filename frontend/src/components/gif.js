@@ -27,7 +27,6 @@ class Gif extends Component {
       }, (obj) => {
         if(!obj.error) {
           var img = obj.image;
-          console.log(img);
           this.setState({gif: img});
         }
       });

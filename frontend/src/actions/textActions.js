@@ -9,7 +9,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 
 export function toGif(text, languages) {
   dispatcher.dispatch({type: "GETTING_GIF", payload: text});
-  // console.log(BACKEND_API + 'api/' + languages.src_lang + '/' + languages.trgt_lang);
+  console.log(BACKEND_API + 'api/' + languages.src_lang + '/' + languages.trgt_lang);
   axios.post(BACKEND_API + 'api/' + languages.src_lang + '/' + languages.trgt_lang, qs.stringify({params: text})).then(function(response) {
     // console.log(response.data);
     dispatcher.dispatch({type: "GOT_GIF", payload: response.data});

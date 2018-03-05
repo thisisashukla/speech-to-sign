@@ -10,6 +10,7 @@
 /build
 /backend/SpeechToSign/subscriptionKeys.py
 /frontend/src/subscriptionKeys.js
+/assets
 
 # misc
 .DS_Store

@@ -1,26 +1,24 @@
-import {Title} from './styles';
+import images from './images';
 import ReactDOM from 'react-dom';
 import Gif from './components/gif';
 import React, {Component} from 'react';
+import {Heading} from './styles';
 import Language from './components/language';
 import Transcription from './components/text';
 import Transcriber from './components/transcriber';
 
-class Heading extends Component {
+class App extends Component {
   render() {
     return (
       <div>
-        <div>
-          <Title>SpeechToSign</Title>
+        <div align="center">
+          <Heading src={images.headingPng}/>
         </div>
         <div align="center">
           <Gif/>
         </div>
         <div align="center">
           <Transcriber/>
-        </div>
-        <div align="center">
-          <Language/>
         </div>
         <div align="center">
           <Transcription/>
@@ -33,4 +31,4 @@ class Heading extends Component {
 var root = document.getElementById('root');
 
 ReactDOM.render(
-  <Heading/>, root);
+  <App/>, root);

@@ -44,9 +44,9 @@ class LanguageStore extends EventEmitter {
           this.updateTrgt(action.payload);
           break;
         };
-      }
     }
   }
+}
 
 const languageStore = new LanguageStore;
 

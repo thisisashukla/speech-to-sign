@@ -24,9 +24,7 @@ class TextStore extends EventEmitter {
     return this.transcript;
   }
 
-  handleActions(action) {
-
-  }
+  handleActions(action) {}
 }
 
 const textStore = new TextStore;

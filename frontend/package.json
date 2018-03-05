@@ -18,7 +18,8 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --content-base src --inline --hot",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "webpack -p --config webpack.prod.config.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

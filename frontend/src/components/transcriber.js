@@ -1,6 +1,6 @@
 import {PushButton} from '../styles';
 import React, {Component} from 'react';
-import { MS_SpeechKey } from '../subscriptionKeys';
+import {MS_SpeechKey} from '../subscriptionKeys';
 import * as SDK from 'microsoft-speech-browser-sdk';
 import {string, number, bool, func} from 'prop-types';
 import TranscriberStore from '../store/transcriberStore';
@@ -81,13 +81,11 @@ class Transcriber extends Component {
 
   toggleRecording = () => {
     if (this.state.status) {
-      this.state.status=false;
+      this.state.status = false;
       // console.log(SDK,this.state.recogizer);
       TrnscbrActions.stop({'SDK': SDK, 'recognizer': this.state.recognizer});
-    }
-
-    else {
-      this.state.status=true;
+    } else {
+      this.state.status = true;
       TrnscbrActions.start({'SDK': SDK, 'recognizer': this.state.recognizer});
       // console.log('after start',this.state.recognizer);
     }

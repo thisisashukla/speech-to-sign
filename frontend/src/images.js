@@ -1,10 +1,9 @@
-import otherGif from '../assests/images/sign.gif';
 import entryGif from '../assests/images/logo.png';
+import loaderGif from '../assests/images/loader.gif';
 
 const images = {
   defaultGif: entryGif,
-  newGif: otherGif,
-  loaderGif: otherGif
+  loaderGif: loaderGif
 };
 
 export default images;

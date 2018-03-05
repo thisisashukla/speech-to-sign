@@ -16,6 +16,9 @@ from TextProcessor.views import analyse, text_translate, entity_analyzer, entity
 
 base_Blob_url = getKey('BASE_BLOB_URL')
 
+@csrf_exempt
+def index(request):
+    return HttpResponse('hello world')
 
 @csrf_exempt
 def textHandler(request, src_lang='en', trgt_lang='en'):
@@ -30,7 +33,8 @@ def textHandler(request, src_lang='en', trgt_lang='en'):
         raw_tokens = raw_txt.split('2B')
     elif '20' in raw_txt:
         raw_tokens = raw_txt.split('20')
-
+    else:
+        raw_tokens=raw_txt.split(' ')
     # getting translation if needed
     trgt_txt = None
     src_txt = ' '.join(raw_tokens)

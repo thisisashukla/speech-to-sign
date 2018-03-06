@@ -95,7 +95,7 @@ class Transcriber extends Component {
   render() {
     return (
       <div>
-        <PushButton onClick={this.toggleRecording} type="button">Push</PushButton>
+        <PushButton onClick={this.toggleRecording} type="button">Start Recognition</PushButton>
       </div>
     );
   }

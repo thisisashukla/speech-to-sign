@@ -23,6 +23,8 @@ def getGifURLs(tuples, trgt_analysis, entity_analysis):
             signURLs.append(base_Blob_url + full_name.lower())
         elif(l == 'ENTITY' and not exists):
             signURLs.append(entity_analysis[t]['metadata'])
+        else:
+            signURLs.append(getEntityImageURL(t)['URL'])
 
     # print('urls',signURLs)
     return signURLs

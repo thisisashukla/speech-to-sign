@@ -76,14 +76,14 @@ class GifStore extends EventEmitter {
           var i=0;
           setInterval(
             () => {
-              console.log(i);
+              // console.log(i);
               this.updateGif(action.payload.gif_array[i]);
               i=i+1;
               if(i==len){
                 i=0;
               }
             }
-            , 2000);
+            , 2500);
           break;
         }
     }

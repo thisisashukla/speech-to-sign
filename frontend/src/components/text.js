@@ -1,4 +1,5 @@
 import {Text} from '../styles';
+import {Status} from '../styles';
 import React, {Component} from 'react';
 import LanguageStore from '../store/languageStore';
 import * as TxtActions from '../actions/textActions';
@@ -9,7 +10,7 @@ class Transcription extends Component {
     super(props);
     this.state = {
       status: null,
-      transcript: 'Your Text Appears here'
+      transcript: 'Click Button To Start Recognition'
     };
   }
 
@@ -37,7 +38,7 @@ class Transcription extends Component {
   render() {
     return (
       <div>
-        <Text>{this.state.status}</Text>
+        <Status>{this.state.status}</Status>
         <Text>{this.state.transcript}</Text>
       </div>
     );

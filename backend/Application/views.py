@@ -61,7 +61,7 @@ def textHandler(request, src_lang='en', trgt_lang='en'):
 
     # getting GIF URLs
     gifs = getGifURLs(tuples, trgt_analysis, entity_analysis)
-
+    print(gifs)
     response = {'gif_array': gifs}
     return JsonResponse(response, safe=False)
 

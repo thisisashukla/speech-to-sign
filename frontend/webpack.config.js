@@ -28,6 +28,17 @@ module.exports = {
           }
         ]
       },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: "./fonts/[hash].[ext]"
+            }
+          }
+        ]
+}
     ]
   },
   output: {
@@ -38,12 +49,12 @@ module.exports = {
   fs: 'empty'
 },
   plugins: debug ? [new webpack.DefinePlugin({
-  BACKEND_API: JSON.stringify('http://192.168.43.206:8000/')
+  BACKEND_API: JSON.stringify('http://192.168.1.111:8000/')
 })] : [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
     new webpack.DefinePlugin({
-    BACKEND_API: JSON.stringify('http://192.168.43.206:8000/')
+    BACKEND_API: JSON.stringify('http://192.168.1.111:8000/')
   }),
   ],
 };

@@ -54,6 +54,7 @@ def analyse(text, lang):
 
     # analysisJSON = MessageToJson(analysis)
     analysisDICT = MessageToDict(analysis)
+    print(analysisDICT)
     # print(analysisDICT)
     tokens = analysisDICT['tokens']
     list = []

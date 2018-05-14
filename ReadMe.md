@@ -73,7 +73,6 @@ on the following OS:
 Developed by
 - Ankur Shukla <work.ankurshukla@gmail.com>
 - Bodhisattwa Neogy <bneogy92@gmail.com>
-- Jayesh Guntupalli <jayeshguntupalli23@gmail.com>
 
 
 2. Installation/Upgrade Instruction
@@ -109,4 +108,3 @@ Cheers!
 
 Ankur Shukla
 Bodhisattwa Neogy
-Jayesh Guntupalli

@@ -94,7 +94,7 @@ cytoolz==0.8.2
 decorator==4.0.11
 dill==0.2.7.1
 Django==2.0
-djangorestframework==3.7.7
+djangorestframework==3.11.2
 entrypoints==0.2.2
 Flask==0.12.2
 Flask-Cors==3.0.2

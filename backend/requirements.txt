@@ -141,7 +141,7 @@ idna==2.6
 imagesize==0.7.1
 isodate==0.6.0
 itsdangerous==0.24
-Jinja2==2.9.6
+Jinja2==2.11.3
 jsonschema==2.6.0
 keyring==11.0.0
 lazy-object-proxy==1.2.2
